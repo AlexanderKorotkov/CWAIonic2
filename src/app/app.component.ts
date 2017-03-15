@@ -7,16 +7,21 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ListPage } from '../pages/list/list';
 
-
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class AppComponent {
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page
   rootPage: any = HelloIonicPage;
   pages: Array<{title: string, component: any}>;
+
+  public options = {
+    position: ["bottom", "right"],
+    timeOut: 5000,
+    lastOnBottom: true
+  };
 
   constructor(
     public platform: Platform,
@@ -30,6 +35,8 @@ export class MyApp {
       { title: 'My First List', component: ListPage }
     ];
   }
+
+
 
   initializeApp() {
     this.platform.ready().then(() => {

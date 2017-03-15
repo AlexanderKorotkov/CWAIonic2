@@ -1,0 +1,37 @@
+
+<!--<div class="container">-->
+    <!--<form name="loginForm" novalidate="">-->
+        <!--<div class="form-group">-->
+             <!--<input type="text" [(ngModel)]="signUpData.companyName" class="form-control"  name="Company Name" placeholder="Company Name" id="companyName" required>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+             <!--<input type="email" [(ngModel)]="signUpData.email" class="form-control"  name="email" placeholder="Email" id="email" required>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<input type="password" [(ngModel)]="signUpData.password" class="form-control"  name="password" placeholder="Password" id="password" required>-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<a class="btn btn-primary" href="javascript://" (click)="signUp()">SignUp</a>-->
+            <!--<a class="btn btn-primary" [routerLink]="'/signIn'" >Back to SignIn</a>-->
+        <!--</div>-->
+    <!--</form>-->
+<!--</div>-->
+<div class="auth">
+    <div class="container">
+        <div class="card card-container">
+            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <p id="profile-name" class="profile-name-card"></p>
+            <form name="loginForm" novalidate="" class="form-signin">
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="email" [(ngModel)]="signUpData.email" class="form-control"  name="email" placeholder="Email" id="email" required>
+                <input type="password" [(ngModel)]="signUpData.password" class="form-control"  name="password" placeholder="Password" id="password" required>
+                <input type="password" [(ngModel)]="signUpData.repeatPassword" class="form-control"  name="repeatPassword" placeholder="Repeat password" id="repeatPassword" required>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" (click)="signUp()">Sign up</button>
+            </form>
+            <a href="#" class="forgot-password">
+                Forgot the password?
+            </a>
+            <a class="btn btn-primary" [routerLink]="'/signIn'" >Back to Sign In</a>
+        </div>
+    </div>
+</div>

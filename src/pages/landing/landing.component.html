@@ -1,0 +1,189 @@
+<ion-content >
+<div class="landing">
+    <nav id="topNav" class="navbar fixed-top navbar-toggleable-sm ">
+        <div class="container">
+            <button class="navbar-toggler hidden-md-up float-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+                ☰
+            </button>
+            <a class="navbar-brand page-scroll" href="#first">Bootstrap 4</a>
+            <div class="collapse navbar-collapse" id="collapsingNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="#one">Cards</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="#two">Flexbox</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="#three">5 Tiers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="#four">More</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" data-toggle="modal" title="A free Bootstrap theme" href="#aboutModal">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header id="first">
+        <div class="header-content">
+            <div class="inner">
+                <h1>CoWorkersApp</h1>
+                <h5 class="wow fadeIn text-normal wow fadeIn">lah blah blah</h5>
+                <a routerLink="/signUp"  class="btn btn-primary-outline btn-xl page-scroll wow fadeInUp m-t-3">Sign Up</a>
+                <a routerLink="/signIn"  class="btn btn-success-outline btn-xl page-scroll wow fadeInUp m-t-3">Sign In</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="one" class="bg-faded">
+        <div class="container wow fadeInUp ">
+            <h2>Cards</h2>
+            <p class="lead">
+                What you notice first in <a href="http://v4-alpha.getbootstrap.com/">Bootstrap 4</a> is that <code>.panel</code> and <code>.well</code> have been replaced by the <code>.card</code>. This makes a lot of sense as "cards" are one of the more well known trends in responsive design.
+                The <a href="">Bootstrap 4 Cards</a> can be singular, grouped together (as shown) or <a href="">equal height</a>. There are many different layout and content options.
+            </p>
+            <div class="card-group">
+                <!-- card -->
+                <div class="card">
+                    <img class="card-img-top img-fluid" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample13.jpg" alt="Card image cap">
+                    <div class="card-block">
+                        <h4 class="card-title">Consise</h4>
+                        <p class="card-text">Cards are a good way to display content composed of different types of objects. They’re well-suited for presenting similar objects whose size or supported actions vary, like headings and photos with captions.</p>
+                    </div>
+                </div>
+                <!-- card -->
+                <div class="card">
+                    <img class="card-img-top img-fluid" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample19.jpg" alt="Card image cap">
+                    <div class="card-block">
+                        <h4 class="card-title">Grouped</h4>
+                        <p class="card-text">Use card groups to render equal height cards without gutters between the cards. Use <code>.card-deck</code> for cards that aren’t attached to each another.</p>
+                    </div>
+                </div>
+                <!-- card -->
+                <div class="card">
+                    <img class="card-img-top img-fluid" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample14.jpg" alt="Card image cap">
+                    <div class="card-block">
+                        <h4 class="card-title">Same Height</h4>
+                        <p class="card-text">A frequent problem occurs when you have multiple items in a row with content of varying height. Thanks to flexbox (and display:table) we now have equal height cards!</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <aside class="bg-alt">
+        <div class="container text-center">
+            <div class="call-to-action">
+                <h2 class="text-primary">Get Started</h2>
+                <a href="http://bootstrap4.guide" target="ext" class="btn btn-primary-outline btn-lg wow flipInX text-uppercase">Free Download</a>
+            </div>
+            <br>
+            <hr>
+            <br>
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <h6 class="wide-space text-center text-uppercase">Bootstrap is Built on these Standards</h6>
+                    <div class="row">
+                        <div class="col-sm-3 col-6 text-center">
+                            <i class="icon-lg ion-social-html5-outline" title="html 5"></i>
+                        </div>
+                        <div class="col-sm-3 col-6 text-center">
+                            <i class="icon-lg ion-social-sass" title="sass"></i>
+                        </div>
+                        <div class="col-sm-3 col-6 text-center">
+                            <i class="icon-lg ion-social-javascript-outline" title="javascript"></i>
+                        </div>
+                        <div class="col-sm-3 col-6 text-center">
+                            <i class="icon-lg ion-social-css3-outline" title="css 3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <section id="last" class="bg-faded">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <h2 class="margin-top-0 wow fadeIn">Get in Touch</h2>
+                    <hr class="primary">
+                    <p>We love feedback. Fill out the form below and we'll get back to you as soon as possible.</p>
+                </div>
+                <div class="col-lg-10 offset-lg-1 text-center">
+                    <form class="contact-form row">
+                        <div class="col-md-4">
+                            <label></label>
+                            <input type="text" class="form-control" placeholder="Name">
+                        </div>
+                        <div class="col-md-4">
+                            <label></label>
+                            <input type="text" class="form-control" placeholder="Email">
+                        </div>
+                        <div class="col-md-4">
+                            <label></label>
+                            <input type="text" class="form-control" placeholder="Phone">
+                        </div>
+                        <div class="col-md-12">
+                            <label></label>
+                            <textarea class="form-control" rows="9" placeholder="Your message here.."></textarea>
+                        </div>
+                        <div class="col-md-4 offset-md-4">
+                            <label></label>
+                            <button type="button" data-toggle="modal" data-target="#alertModal" class="btn btn-primary btn-block btn-lg">Send <i class="ion-android-arrow-forward"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-sm-3">
+                    <h6 class="text-uppercase">Bootstrap 4</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="https://medium.com/@bootply/bootstrap-4-whats-new-visual-guide-c84dd81d8387" target="ext">What's New</a></li>
+                        <li><a href="http://codeply.com/tagged/bootstrap-4" target="ext">Examples</a></li>
+                        <li><a href="http://getbootstrap.com" target="ext">Official</a></li>
+                        <li><a href="http://www.codeply.com/go/p/bootstrap_4.0.alpha" target="ext">Playground</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-sm-3 column">
+                    <h6 class="text-uppercase">About</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Delivery Information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-3 column">
+                    <h6 class="text-uppercase">Stay Posted</h6>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" title="No spam, we promise!" placeholder="Tell us your email">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#alertModal" type="button">Subscribe for updates</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-12 col-sm-3 text-right">
+                    <h6 class="text-uppercase">Follow</h6>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a rel="nofollow" href="" title="Twitter"><i class="icon-lg ion-social-twitter-outline"></i></a>&nbsp;</li>
+                        <li class="list-inline-item"><a rel="nofollow" href="" title="Facebook"><i class="icon-lg ion-social-facebook-outline"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <span class="float-right text-muted small"><a href="http://bootstrap4.guide">Made by Themes.guide</a> ©2015-2017 Company</span>
+        </div>
+    </footer>
+</div>
+</ion-content>

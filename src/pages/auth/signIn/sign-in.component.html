@@ -1,0 +1,18 @@
+<div class="auth">
+    <div class="container">
+        <div class="card card-container">
+            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <p id="profile-name" class="profile-name-card"></p>
+            <form name="loginForm" novalidate="" class="form-signin">
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="email" [(ngModel)]="signInData.email" class="form-control"  name="email" placeholder="Email" id="email" required>
+                <input type="password" [(ngModel)]="signInData.password" class="form-control"  name="password" placeholder="Password" id="password" required>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" (click)="signIn()">Sign in</button>
+            </form>
+            <a href="#" class="forgot-password">
+                Forgot the password?
+            </a>
+            <a class="btn btn-primary" [routerLink]="'/signUp'" >Create company</a>
+        </div>
+    </div>
+</div>
