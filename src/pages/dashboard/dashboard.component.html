@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Welcome To CoWorkersApp</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+
+
+  <ul class="nav nav-tabs">
+      <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/menu'" [routerLinkActive]="['active']">Menu</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/workers'" [routerLinkActive]="['active']">User</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/logout'" [routerLinkActive]="['active']">Log</a>
+      </li>
+  </ul>
+  <router-outlet></router-outlet>
+</ion-content>

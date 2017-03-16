@@ -1,4 +1,5 @@
 import { NgModule }                from '@angular/core';
+import { IonicModule } from 'ionic-angular';
 
 import { BrowserModule }           from '@angular/platform-browser';
 import { FormsModule }             from '@angular/forms';
@@ -19,6 +20,7 @@ import { ConfigService }            from './config/config.service';
         FormsModule,
         HttpModule,
         SimpleNotificationsModule,
+        IonicModule,
         CommonModule
     ],
     providers: [

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import {NotificationsService} from 'angular2-notifications';
 
@@ -45,4 +44,5 @@ export class SignInComponent implements OnInit{
             )
         }) ;
     }
+
 }

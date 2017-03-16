@@ -1,0 +1,10 @@
+<a (click)="workerDetails(worker)" class="list-group-item list-group-item-action flex-column align-items-start active">
+    <img [src]="getImage(worker.avatar?.imageThumbUrl)" >
+    <h2>{{worker.name}}</h2>
+    <p>{{worker.surname}}</p>
+    <i class="icon ion-chevron-right icon-accessory"></i>
+    <button *ngIf="canDelete" (click)="remove($event, worker)" type="button" class="btn btn-primary">
+        Single toggle
+    </button>
+</a>
+

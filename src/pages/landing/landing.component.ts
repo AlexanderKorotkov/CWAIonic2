@@ -14,4 +14,8 @@ export class LandingComponent implements OnInit{
 
     }
 
+  chat() {
+    console.log(123)
+  }
+
 }

@@ -7,10 +7,10 @@ import { ListPage } from '../pages/list/list';
 import { BrowserModule }           from '@angular/platform-browser';
 
 /* Feature Modules */
-// import {DashboardModule}           from './dashboard/dashboard.module';
-// import {WorkersModule}             from './dashboard/workers/workers.module';
+import {DashboardModule}           from '../pages/dashboard/dashboard.module';
+import {WorkersModule}             from '../pages/dashboard/workers/workers.module';
 import {AuthModule}                from '../pages/auth/auth.module';
-// import {MenuModule}                from './dashboard/menu/menu.module';
+import {MenuModule}                from '../pages/dashboard/menu/menu.module';
 import {SharedModule}              from '../shared/shared.module';
 
 /* Routing Module */
@@ -34,7 +34,10 @@ import { LandingComponent }        from '../pages/landing/landing.component';
     BrowserModule,
     SharedModule,
     AuthModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DashboardModule,
+    WorkersModule,
+    MenuModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
