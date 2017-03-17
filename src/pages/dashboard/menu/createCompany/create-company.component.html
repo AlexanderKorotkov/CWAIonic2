@@ -1,15 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Welcome To CoWorkersApp</ion-title>
+  </ion-navbar>
+</ion-header>
 
-<div class="container">
-    <form name="createCompanyForm" novalidate="">
-        <div class="form-group">
-            <input type="text" [(ngModel)]="companyData.companyName" class="form-control"  name="companyName" placeholder="Company Name" id="companyName" required>
-        </div>
-        <div class="form-group">
-            <input type="text" [(ngModel)]="companyData.companyNameRepeat" class="form-control"  name="companyNameRepeat" placeholder="Repeat Company Name" id="companyNameRepeat" required>
-        </div>
+<ion-content>
+  <ion-list>
+    <form name="createCompanyForm" (ngSubmit)="create()">
+      <ion-item>
+        <ion-label floating>Company Name</ion-label>
+        <ion-input  type="text" [(ngModel)]="companyData.companyName" name="companyName" id="companyName" required></ion-input>
+      </ion-item>
 
+      <ion-item>
+        <ion-label floating>Repeat Company Name</ion-label>
+        <ion-input type="text" [(ngModel)]="companyData.companyNameRepeat" name="companyNameRepeat" id="companyNameRepeat" required></ion-input>
+      </ion-item>
+      <div padding>
+        <button ion-button color="primary" block type="submit">Create New Company</button>
+      </div>
     </form>
-    <div>
-        <a class="btn btn-primary" href="javascript://" (click)="create()">Create Company</a>
-    </div>
-</div>
+  </ion-list>
+ </ion-content>
+

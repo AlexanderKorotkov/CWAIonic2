@@ -13,18 +13,13 @@ import {AuthModule}                from '../pages/auth/auth.module';
 import {MenuModule}                from '../pages/dashboard/menu/menu.module';
 import {SharedModule}              from '../shared/shared.module';
 
-/* Routing Module */
-import {AppRoutingModule}          from './app-routing.module';
-
 /* App Root */
 import { AppComponent }            from './app.component';
-import { LandingComponent }        from '../pages/landing/landing.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingComponent,
     HelloIonicPage,
     ItemDetailsPage,
     ListPage
@@ -34,7 +29,6 @@ import { LandingComponent }        from '../pages/landing/landing.component';
     BrowserModule,
     SharedModule,
     AuthModule,
-    AppRoutingModule,
     DashboardModule,
     WorkersModule,
     MenuModule
@@ -42,7 +36,6 @@ import { LandingComponent }        from '../pages/landing/landing.component';
   bootstrap: [IonicApp],
   entryComponents: [
     AppComponent,
-    LandingComponent,
     HelloIonicPage,
     ItemDetailsPage,
     ListPage

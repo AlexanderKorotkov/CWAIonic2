@@ -1,20 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { MenuComponent } from './menu/menu.component';
+import { WorkersComponent } from './workers/workers.component';
 
 @Component({
     selector: 'dashboard',
     templateUrl: 'dashboard.component.html'
 })
-export class DashboardComponent implements OnInit{
-    constructor(
-        private router: Router
-    ) { }
-    ngOnInit() {
-        if(this.router.url === '/'){
-            this.router.navigate(['/menu']);
-        }else{
-            this.router.navigate([this.router.url]);
-        }
+export class DashboardComponent{
+  menu: any;
+  workers: any;
 
-    }
+  constructor() {
+    this.menu = MenuComponent;
+    this.workers = WorkersComponent;
+  }
 }

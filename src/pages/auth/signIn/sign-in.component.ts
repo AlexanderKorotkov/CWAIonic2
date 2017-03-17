@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import {NotificationsService} from 'angular2-notifications';
+import { NavController, Nav } from 'ionic-angular';
 
 import { SignInService } from './sign-in.service';
 import { SignInFields } from './sign-in-fields';
+import { SignUpComponent } from '../signUp/sign-up.component';
+import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { AuthService } from '../../../shared/auth/auth.service';
 import { ConfigService } from '../../../shared/config/config.service';
 
@@ -15,9 +17,10 @@ import { ConfigService } from '../../../shared/config/config.service';
 export class SignInComponent implements OnInit{
     constructor(
         private signInService: SignInService,
-        private route: Router,
         private configService: ConfigService,
         private authService: AuthService,
+        private navCtrl: NavController,
+        private nav: Nav,
         private notificationsService: NotificationsService
     ) { }
     signInData: SignInFields;
@@ -35,7 +38,7 @@ export class SignInComponent implements OnInit{
     signIn() {
         this.signInService.signIn(this.signInData).subscribe(result => {
             if(this.authService.setUserIdentity(result)){
-                this.route.navigate(['/menu']);
+                this.nav.setRoot(DashboardComponent)
             }
         },(result) => {
             this.notificationsService.error(
@@ -43,6 +46,9 @@ export class SignInComponent implements OnInit{
                 `${result.error}`
             )
         }) ;
+    }
+    navOnSignUp() {
+      this.navCtrl.push(SignUpComponent);
     }
 
 }

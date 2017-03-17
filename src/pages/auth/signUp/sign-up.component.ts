@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavController } from 'ionic-angular';
 import {NotificationsService} from 'angular2-notifications';
 
 import { SignUpService } from './sign-up.service';
 import { SignUpFields } from './sign-up-fields';
-
 
 @Component({
     selector: 'sign-up',
@@ -16,7 +15,7 @@ export class SignUpComponent implements OnInit{
     constructor(
         private signUpService: SignUpService,
         private notificationsService: NotificationsService,
-        private router: Router
+        private navCtrl: NavController
     ) { }
 
     ngOnInit() {
@@ -31,7 +30,7 @@ export class SignUpComponent implements OnInit{
 
     signUp() {
         this.signUpService.signUp(this.signUpData).subscribe(result => {
-            this.router.navigate(['/signIn']);
+            this.navCtrl.pop();
             this.notificationsService.success(
                 'Success',
                 `${result.message}`,

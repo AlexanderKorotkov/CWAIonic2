@@ -4,18 +4,20 @@ import { Platform, MenuController, Nav } from 'ionic-angular';
 
 import { StatusBar, Splashscreen } from 'ionic-native';
 
-import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
-import { ListPage } from '../pages/list/list';
+import { AuthService }          from '../shared/auth/auth.service';
+import { SignInComponent } from '../pages/auth/signIn/sign-in.component';
+import { DashboardComponent } from '../pages/dashboard/dashboard.component';
+
 
 @Component({
   templateUrl: 'app.html'
 })
 export class AppComponent {
   @ViewChild(Nav) nav: Nav;
-
+  currentUser : any;
   // make HelloIonicPage the root (or first) page
-  rootPage: any = HelloIonicPage;
-  pages: Array<{title: string, component: any}>;
+  rootPage: any = SignInComponent;
+  // pages: Array<{title: string, component: any}>;
 
   public options = {
     position: ["bottom", "right"],
@@ -25,15 +27,16 @@ export class AppComponent {
 
   constructor(
     public platform: Platform,
-    public menu: MenuController
+    public menu: MenuController,
+    public authService: AuthService
   ) {
     this.initializeApp();
 
     // set our app's pages
-    this.pages = [
-      { title: 'Hello Ionic', component: HelloIonicPage },
-      { title: 'My First List', component: ListPage }
-    ];
+    // this.pages = [
+    //   { title: 'Hello Ionic', component: SignInComponents },
+    //   { title: 'My First List', component: ListPage }
+    // ];
   }
 
 
@@ -45,12 +48,16 @@ export class AppComponent {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
+    this.currentUser = this.authService.getUserIdentity().user;
+    if(this.currentUser){
+      this.rootPage = DashboardComponent;
+    }
   }
 
-  openPage(page) {
-    // close the menu when clicking a link from the menu
-    this.menu.close();
-    // navigate to the new page if it is not the current page
-    this.nav.setRoot(page.component);
-  }
+  // openPage(page) {
+  //   // close the menu when clicking a link from the menu
+  //   this.menu.close();
+  //   // navigate to the new page if it is not the current page
+  //   this.nav.setRoot(page.component);
+  // }
 }

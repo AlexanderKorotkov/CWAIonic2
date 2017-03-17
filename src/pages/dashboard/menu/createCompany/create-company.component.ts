@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { AuthService } from '../../../../shared/auth/auth.service';
 import {NotificationsService} from 'angular2-notifications';
@@ -18,7 +17,6 @@ export class CreateCompanyComponent implements OnInit{
     constructor(
         private authService: AuthService,
         private notificationsService: NotificationsService,
-        private router: Router,
         private createCompanyService: CreateCompanyService
     ) { }
     ngOnInit() {
@@ -31,7 +29,7 @@ export class CreateCompanyComponent implements OnInit{
 
     create() {
         this.createCompanyService.createCompany(this.companyData, this.currentUser._id).subscribe(result => {
-            this.router.navigate(['/dashboard/menu']);
+
             this.notificationsService.success(
                 'Success',
                 `${result.message}`,

@@ -9,21 +9,20 @@
 <ion-content>
 
   <ion-list>
+    <form (ngSubmit)="signIn()">
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" [(ngModel)]="signInData.email" name="email"  required></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label floating>Username</ion-label>
-      <ion-input type="email" [(ngModel)]="signInData.email"  required></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input type="password" [(ngModel)]="signInData.password" required></ion-input>
-    </ion-item>
-
-    <div padding>
-      <button ion-button color="primary" block (click)="signIn()">Sign in</button>
-    </div>
-
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="signInData.password" name="password" required></ion-input>
+      </ion-item>
+      <div padding>
+        <button ion-button color="primary" block type="submit">Sign in</button>
+      </div>
+    </form>
   </ion-list>
 
   <div padding>
@@ -31,6 +30,6 @@
   </div>
 
   <div padding>
-    <button ion-button color="primary" block [routerLink]="'/signUp'">Create company</button>
+    <button ion-button color="primary" block (click)="navOnSignUp()">Create company</button>
   </div>
 </ion-content>

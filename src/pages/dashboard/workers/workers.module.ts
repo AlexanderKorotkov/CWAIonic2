@@ -32,6 +32,13 @@ import { UploadAvatarService }     from './shared/upload-avatar.service';
         WorkerEditComponent,
         FileSelectDirective
     ],
+    entryComponents: [
+      WorkersComponent,
+      WorkerComponent,
+      AddWorkerComponent,
+      WorkerDetailsComponent,
+      WorkerEditComponent
+    ],
     providers: [
         WorkersService,
         AddWorkerService,

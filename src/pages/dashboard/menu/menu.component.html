@@ -1,19 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Welcome To CoWorkersApp</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+      <button ion-button outline icon-left  color="secondary" [navPush]="createCompanyPage">
+        <ion-icon name='briefcase' is-active="false" ></ion-icon>
+        Create company
+      </button>
+      <button ion-button outline icon-left [navPush]="selectCompanyPage">
+        <ion-icon name='briefcase' is-active="false" ></ion-icon>
+        Change password
+      </button>
+      <button ion-button outline icon-left  [navPush]="changePasswordPage">
+        <ion-icon name='briefcase' is-active="false" ></ion-icon>
+        Change password
+      </button>
+  </ion-list>
+</ion-content>
 
-<ion-list>
-  <div>
-    <button ion-button outline icon-left [routerLink]="'/createCompany'" color="secondary">
-      <ion-icon name='briefcase' is-active="false" ></ion-icon>
-      Create company
-    </button>
-    <button ion-button outline icon-left [routerLink]="'/changePassword'" >
-      <ion-icon name='briefcase' is-active="false"></ion-icon>
-      Change password
-    </button>
-    <button ion-button outline icon-left [routerLink]="'/selectCompany'" >
-      <ion-icon name='briefcase' is-active="false"></ion-icon>
-      Change password
-    </button>
-  </div>
-</ion-list>
 
 

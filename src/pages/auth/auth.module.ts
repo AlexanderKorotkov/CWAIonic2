@@ -2,7 +2,6 @@ import { NgModule }                from '@angular/core';
 
 import {SharedModule}              from '../../shared/shared.module';
 
-import { AuthRoutingModule }       from './auth-routing.module';
 
 import { SignInComponent }         from './signIn/sign-in.component';
 import { SignUpComponent }         from './signUp/sign-up.component';
@@ -12,7 +11,6 @@ import { SignInService }           from './signIn/sign-in.service';
 
 @NgModule({
     imports: [
-        AuthRoutingModule,
         SharedModule
     ],
     declarations: [
@@ -22,6 +20,10 @@ import { SignInService }           from './signIn/sign-in.service';
     providers: [
         SignInService,
         SignUpService
+    ],
+    entryComponents: [
+      SignInComponent,
+      SignUpComponent
     ],
     bootstrap: [ ]
 })

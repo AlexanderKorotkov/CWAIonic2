@@ -1,25 +1,34 @@
-<div class="container">
+<ion-header>
+  <ion-navbar>
+    <ion-title>Welcome To CoWorkersApp</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
     <div class="padding" *ngIf="currentUser.role">
-        <button class="button button-block button-small button-balanced" [routerLink]="'/addWorker'" >
-            Add a new User
-        </button>
+      <button class="button button-block button-small button-balanced"  >
+        Add a new User
+      </button>
     </div>
     <div *ngIf="workers && workers.length !== 0">
-        <div  *ngIf="currentUser.role">
-            <button (click)="showDeleteButton()" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" >
-                Show delete
-            </button>
-        </div>
+      <div  *ngIf="currentUser.role">
+        <button (click)="showDeleteButton()" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" >
+          Show delete
+        </button>
+      </div>
     </div>
 
     <div *ngIf="workers">
-        <div class="list-group" *ngFor="let worker of workers">
-            <worker [worker]="worker" [canDelete]="canDelete" (deleteWorker)="deleteWorker($event)" (goToWorkerDetails)="goToWorkerDetails($event)"></worker>
-        </div>
+      <div class="list-group" *ngFor="let worker of workers">
+        <worker [worker]="worker" [canDelete]="canDelete" (deleteWorker)="deleteWorker($event)" (goToWorkerDetails)="goToWorkerDetails($event)"></worker>
+      </div>
     </div>
 
 
-</div>
-<button class="button button-block button-small button-balanced" (click)="logOut()" >
+  </div>
+  <button class="button button-block button-small button-balanced" (click)="logOut()" >
     LogOut
-</button>
+  </button>
+</ion-content>
+
