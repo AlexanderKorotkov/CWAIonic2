@@ -44,6 +44,6 @@ import { UploadAvatarService }     from './shared/upload-avatar.service';
         AddWorkerService,
         WorkerEditService,
         UploadAvatarService
-    ]
+    ],
 })
 export class WorkersModule { }

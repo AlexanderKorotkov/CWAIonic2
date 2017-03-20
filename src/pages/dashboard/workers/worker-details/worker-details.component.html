@@ -1,26 +1,35 @@
-<button *ngIf="currentUser.role && worker" class="button"  >
-    Edit
-</button>
+<ion-header>
+  <ion-navbar>
+    <ion-title>Worker details</ion-title>
+  </ion-navbar>
+</ion-header>
 
-    <div class="list" *ngIf="worker">
-        <div *ngIf="worker.email" class="item item-icon-left item-icon-right" >
-            <i class="icon ion-email"></i>
-            {{worker.email}}
-            <a class="icon user-phone ion-paper-airplane" [href]="'mailto:'+worker.email">
-            </a>
-        </div>
 
-        <div class="item item-icon-left item-icon-right" >
-            <i class="icon ion-ios-telephone"></i>
-            {{worker.phone}}
-            <a class="icon user-phone ion-ios-telephone-outline" [href]="'tel:'+worker.phone">
-            </a>
-        </div>
+<ion-content >
 
-        <div class="item item-icon-left item-icon-right" >
-            <i class="icon ion-social-skype"></i>
-            {{worker.skype}}
-            <a class="icon user-phone ion-ios-chatbubble-outline" [href]="'skype:'+ worker.skype +'?chat'">
-            </a>
-        </div>
+  <button *ngIf="currentUser.role && worker" ion-button color="primary" block type="button" [navPush]="editPage">Edit</button>
+
+  <div class="list" *ngIf="worker">
+    <div *ngIf="worker.email" class="item item-icon-left item-icon-right" >
+      <i class="icon ion-email"></i>
+      {{worker.email}}
+      <a class="icon user-phone ion-paper-airplane" [href]="'mailto:'+worker.email">
+      </a>
     </div>
+
+    <div class="item item-icon-left item-icon-right" >
+      <i class="icon ion-ios-telephone"></i>
+      {{worker.phone}}
+      <a class="icon user-phone ion-ios-telephone-outline" [href]="'tel:'+worker.phone">
+      </a>
+    </div>
+
+    <div class="item item-icon-left item-icon-right" >
+      <i class="icon ion-social-skype"></i>
+      {{worker.skype}}
+      <a class="icon user-phone ion-ios-chatbubble-outline" [href]="'skype:'+ worker.skype +'?chat'">
+      </a>
+    </div>
+  </div>
+
+</ion-content >

@@ -1,9 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
     selector: 'worker',
     templateUrl: 'worker.component.html'
 })
+
 export class WorkerComponent{
     @Input() worker: any;
     @Input() canDelete: boolean;

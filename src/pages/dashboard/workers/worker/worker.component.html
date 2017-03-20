@@ -1,10 +1,12 @@
-<a (click)="workerDetails(worker)" class="list-group-item list-group-item-action flex-column align-items-start active">
+<ion-item>
+  <ion-thumbnail item-left>
     <img [src]="getImage(worker.avatar?.imageThumbUrl)" >
-    <h2>{{worker.name}}</h2>
-    <p>{{worker.surname}}</p>
-    <i class="icon ion-chevron-right icon-accessory"></i>
-    <button *ngIf="canDelete" (click)="remove($event, worker)" type="button" class="btn btn-primary">
-        Single toggle
-    </button>
-</a>
-
+  </ion-thumbnail>
+  <h2>{{worker.name}}</h2>
+  <p>{{worker.surname}}</p>
+  <button (click)="workerDetails(worker)" ion-button clear item-right>View</button>
+  <button *ngIf="canDelete" ion-button danger (click)="remove($event, worker)">
+    <ion-icon name="trash"></ion-icon>
+    Delete
+  </button>
+</ion-item>

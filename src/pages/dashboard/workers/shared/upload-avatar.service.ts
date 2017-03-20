@@ -1,9 +1,8 @@
 import {Injectable}    from '@angular/core';
 import {Router} from '@angular/router';
-
 import {FileUploader} from 'ng2-file-upload';
-import {NotificationsService} from 'angular2-notifications';
 
+import {NotificationsService} from 'angular2-notifications';
 import {ConfigService} from '../../../../shared/config/config.service';
 import {AuthService} from '../../../../shared/auth/auth.service';
 
@@ -13,7 +12,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class UploadAvatarService {
-
+    url:any;
     constructor(
         private router: Router,
         private authService: AuthService,
@@ -21,8 +20,8 @@ export class UploadAvatarService {
         private configService: ConfigService
     ) { }
 
-    private addNewWorkerUploadUrl = `${this.configService.getConfig().apiMainUrl}/company${this.router.url}`;
-    private updateWorkerUploadUrl = `${this.configService.getConfig().apiMainUrl}/company/${this.authService.getUserIdentity().user.currentCompany.companyId}${this.router.url}`;
+    private addNewWorkerUploadUrl : any;
+    private updateWorkerUploadUrl : any;
     private token = this.authService.getUserIdentity().token;
 
     public target:any;
@@ -33,9 +32,9 @@ export class UploadAvatarService {
 
     setUploaderUrl(type:string){
         if(type === 'addWorker'){
-            return this.addNewWorkerUploadUrl;
+            return this.addNewWorkerUploadUrl = `${this.configService.getConfig().apiMainUrl}/company/${type}`;
         }else{
-            return this.updateWorkerUploadUrl;
+            return this.updateWorkerUploadUrl = `${this.configService.getConfig().apiMainUrl}/company/${this.authService.getUserIdentity().user.currentCompany.companyId}/${type}`;
         }
     };
 
@@ -70,14 +69,14 @@ export class UploadAvatarService {
             if (this.authService.isAuthenticated()) {
                 this.authService.removeUserIdentity();
             }
-            this.router.navigate(['/signIn']);
+            // this.router.navigate(['/signIn']);
         }
         if(status === 200 ){
             this.notificationsService.success(
                 'Success',
                 `Worker was created`
             );
-            this.router.navigate(['/workers']);
+            // this.router.navigate(['/workers']);
         }
         if(status === 400 ){
             response = JSON.parse(response);

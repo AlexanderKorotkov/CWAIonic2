@@ -48,7 +48,7 @@ export class AppComponent {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
-    this.currentUser = this.authService.getUserIdentity().user;
+    this.currentUser = this.authService.getUserIdentity();
     if(this.currentUser){
       this.rootPage = DashboardComponent;
     }

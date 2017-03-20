@@ -1,66 +1,75 @@
-<div class="content">
-        <form action="">
-            <div class="list" *ngIf="workerInfo">
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf="!isEdit">Add worker</ion-title>
+    <ion-title *ngIf="isEdit">Edit worker</ion-title>
+  </ion-navbar>
+</ion-header>
 
-                <div class="form-group">
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">Single</span>
+<ion-content>
+  <ion-list>
+    <form name="addWorkerForm" *ngIf="workerInfo">
+      <!--<ion-item>-->
+        <label>Upload File</label>
+        <input  type="file" (change)="onFileChange($event)" ng2FileSelect [uploader]="uploader">
+      <!--</ion-item>-->
 
-                        <input type="file" (change)="onFileChange($event)" ng2FileSelect [uploader]="uploader" />
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">First Name</span>
-                        <input type="text" placeholder="John" [(ngModel)]="workerInfo.name" name="name" required>
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">Last Name</span>
-                        <input type="text" placeholder="Sur" [(ngModel)]="workerInfo.surname" name="surname">
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">Email</span>
-                        <input type="text" placeholder="john@suhr.com" [(ngModel)]="workerInfo.email" name="email">
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">position</span>
-                        <input type="text" placeholder="Ruby developer" [(ngModel)]="workerInfo.position" name="position">
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">project</span>
-                        <input type="text" placeholder="FixitSukaJoe" [(ngModel)]="workerInfo.project" name="project">
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">skype</span>
-                        <input type="text" placeholder="skype" [(ngModel)]="workerInfo.skype" name="skype">
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">phone</span>
-                        <input type="text" placeholder="phone" [(ngModel)]="workerInfo.phone" name="phone">
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">bDay</span>
-                        <input type="text" placeholder="bDay" [(ngModel)]="workerInfo.bDay" name="bDay">
-                    </label>
-                </div>
-            </div>
-            <button *ngIf="!isEdit" type="button" class="btn btn-default" (click)="sendUser()">Submit</button>
-            <button *ngIf="isEdit" type="button" class="btn btn-default" (click)="updateWorker()">edit</button>
-        </form>
+      <ion-item>
+        <ion-label floating>First Name</ion-label>
+        <ion-input  type="text" [(ngModel)]="workerInfo.name" name="name" id="name" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Last Name</ion-label>
+        <ion-input type="text" [(ngModel)]="workerInfo.surname" name="surname" id="surname" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="text" [(ngModel)]="workerInfo.email" name="email" id="email" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Position</ion-label>
+        <ion-input type="text" [(ngModel)]="workerInfo.position" name="position" id="position" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Project</ion-label>
+        <ion-input type="text" [(ngModel)]="workerInfo.project" name="project" id="project" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Skype</ion-label>
+        <ion-input type="text" [(ngModel)]="workerInfo.skype" name="skype" id="skype" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Phone</ion-label>
+        <ion-input type="text" [(ngModel)]="workerInfo.phone" name="phone" id="phone" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>bDay</ion-label>
+        <ion-input type="text" [(ngModel)]="workerInfo.bDay" name="phone" id="bDay" ></ion-input>
+      </ion-item>
+      <div padding>
+        <button *ngIf="!isEdit" ion-button color="primary" block type="button" (click)="sendUser()">Add Worker</button>
+        <button *ngIf="isEdit" ion-button color="primary" block type="button" (click)="updateWorker()">Edit Worker</button>
+      </div>
+    </form>
+  </ion-list>
+</ion-content>
+
+
+
+<!--<div class="content">-->
+        <!--<form action="">-->
+            <!--<div class="list" *ngIf="workerInfo">-->
+
+                <!--<div class="form-group">-->
+                    <!--<label class="item item-input item-stacked-label">-->
+                        <!--<span class="input-label">Single</span>-->
+
+                        <!--<input type="file" (change)="onFileChange($event)" ng2FileSelect [uploader]="uploader" />-->
+                    <!--</label>-->
+                <!--</div>-->
+
+            <!--</div>-->
+        <!--</form>-->
         <!--<button class="button button-balanced button-small" (click)="sendUser(user)">-->
             <!--Submit-->
         <!--</button>-->
@@ -68,4 +77,4 @@
             <!--Update-->
         <!--</button>-->
 
-</div>
+<!--</div>-->

@@ -1,11 +1,13 @@
 import { Component, OnInit }    from '@angular/core';
-import { Router }               from '@angular/router';
+import { NavController } from 'ionic-angular';
 
 import { AuthService }          from '../../../shared/auth/auth.service';
 import {NotificationsService}   from 'angular2-notifications';
 
 import { WorkersService }       from './workers.service';
 import { WorkerComponent }      from './worker/worker.component';
+import { AddWorkerComponent }   from './add-worker/add-worker.component';
+import { WorkerDetailsComponent }   from './worker-details/worker-details.component';
 
 @Component({
     selector: 'workers',
@@ -16,16 +18,18 @@ export class WorkersComponent implements OnInit{
 
     currentUser : any;
     workers:any;
+    addWorkerPage:any;
     canDelete:boolean = false;
 
     constructor(
-        private route: Router,
+        private nav: NavController,
         private workersService: WorkersService,
         private authService: AuthService,
         private notificationsService: NotificationsService
     ) { }
     ngOnInit() {
         this.currentUser = this.authService.getUserIdentity().user;
+        this.addWorkerPage = AddWorkerComponent;
 
         if(!this.currentUser.currentCompany){
             this.notificationsService.alert(
@@ -63,7 +67,7 @@ export class WorkersComponent implements OnInit{
 
     goToWorkerDetails(worker:any) {
         this.workersService.currentWorker = worker;
-        this.route.navigate([`${'/workerDetails/'}`])
+        this.nav.push(WorkerDetailsComponent);
     }
 
     showDeleteButton(){
@@ -72,7 +76,7 @@ export class WorkersComponent implements OnInit{
 
     logOut(){
         this.authService.removeUserIdentity();
-        this.route.navigate([`${'/'}`])
+        // this.route.navigate([`${'/'}`])
     };
 
 }

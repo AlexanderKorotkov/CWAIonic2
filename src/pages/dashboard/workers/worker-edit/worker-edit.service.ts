@@ -19,7 +19,7 @@ export class WorkerEditService {
     private workerEditUrl = `${this.configService.getConfig().apiMainUrl}/company/`;  // URL to web api
 
     updateWorker(worker:any, companyId:string): Observable<any> {
-        return this.http.post(`${this.workerEditUrl}${companyId}/updateWorker`, {worker :worker})
+        return this.http.post(`${this.workerEditUrl}${companyId}/workerEdit`, {worker :worker})
             .map(response => response.json())
             .catch(err =>  Promise.reject(err.json()));
     }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { AuthService } from '../../../../shared/auth/auth.service';
 import {NotificationsService} from 'angular2-notifications';
@@ -14,12 +14,15 @@ import { UploadAvatarService } from '../shared/upload-avatar.service';
 export class AddWorkerComponent implements OnInit{
 
     constructor(
-        private router: Router,
         private addWorkerService: AddWorkerService,
         private authService: AuthService,
         private uploadAvatarService: UploadAvatarService,
-        private notificationsService: NotificationsService
-    ) { }
+        private notificationsService: NotificationsService,
+        private nav: NavController,
+        private navParams: NavParams
+    ) {
+      this.uploadAvatarService.url = this.navParams.get('url');
+    }
     uploader: any;
     workerInfo: {
         name: string;
@@ -76,7 +79,7 @@ export class AddWorkerComponent implements OnInit{
                     'Success',
                     `Worker was created`
                 );
-                this.router.navigate(['/workers']);
+                this.nav.pop();
             },(result) => {
                 this.notificationsService.error(
                     'Error',

@@ -1,11 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Select Company</ion-title>
+  </ion-navbar>
+</ion-header>
 
-<div class="container"  >
-    <div *ngIf="companyList">
-        <label class="custom-control custom-radio" *ngFor="let company of companyList, let i = index" >
-            <input id="radio{{i}}" name="radio" type="radio" [(ngModel)]="selectedCompany" class="custom-control-input" value="{{company.companyName}}" (click)="selectCompany(company)">
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">{{company.companyName}}</span>
-        </label>
-    </div>
 
-</div>
+<ion-content>
+  <ion-list radio-group>
+    <ion-item *ngFor="let company of companyList, let i = index">
+      <ion-label>{{company.companyName}}</ion-label>
+      <ion-radio id="radio{{i}}" [checked]="selectedCompany == company.companyName" value="{{company.companyName}}" (click)="selectCompany(company)"></ion-radio>
+    </ion-item>
+  </ion-list>
+</ion-content>
+

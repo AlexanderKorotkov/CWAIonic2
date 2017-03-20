@@ -46,7 +46,7 @@ export class WorkerEditComponent implements OnInit{
         }
 
         this.uploader = this.uploadAvatarService.uploader;
-        this.uploader.options.url = this.uploadAvatarService.setUploaderUrl('updateWorker');
+        this.uploader.options.url = this.uploadAvatarService.setUploaderUrl('workerEdit');
         this.uploader.onAfterAddingFile = ((item:any) => {
             this.uploadAvatarService.onAfterAddingFile(item);
         });
