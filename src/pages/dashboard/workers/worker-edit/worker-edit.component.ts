@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Location} from '@angular/common';
+import { NavController } from 'ionic-angular';
 import {NotificationsService} from 'angular2-notifications';
 
 import { AuthService } from '../../../../shared/auth/auth.service';
@@ -17,7 +17,7 @@ export class WorkerEditComponent implements OnInit{
         private uploadAvatarService: UploadAvatarService,
         private workerEditService: WorkerEditService,
         private authService: AuthService,
-        private location: Location,
+        private nav: NavController,
         private workersService: WorkersService,
         private notificationsService: NotificationsService
     ) { }
@@ -42,7 +42,7 @@ export class WorkerEditComponent implements OnInit{
         if(this.workersService.currentWorker){
             this.workerInfo = this.workersService.currentWorker
         }else{
-            this.location.back();
+            this.nav.pop();
         }
 
         this.uploader = this.uploadAvatarService.uploader;
@@ -68,7 +68,7 @@ export class WorkerEditComponent implements OnInit{
             };
         }else {
             this.workerEditService.updateWorker(this.workerInfo, this.currentUser.currentCompany.companyId).subscribe(() => {
-                this.location.back();
+                this.nav.pop();
                 this.notificationsService.success(
                     'Success',
                     `Worker was updated successfully`

@@ -5,31 +5,83 @@
 </ion-header>
 
 
-<ion-content >
+<ion-content *ngIf="worker">
 
-  <button *ngIf="currentUser.role && worker" ion-button color="primary" block type="button" [navPush]="editPage">Edit</button>
+  <button *ngIf="currentUser?.role && worker" ion-button color="primary" block type="button" [navPush]="editPage">Edit</button>
 
-  <div class="list" *ngIf="worker">
-    <div *ngIf="worker.email" class="item item-icon-left item-icon-right" >
-      <i class="icon ion-email"></i>
-      {{worker.email}}
-      <a class="icon user-phone ion-paper-airplane" [href]="'mailto:'+worker.email">
+  <ion-list >
+    <ion-item>
+      <ion-avatar item-left>
+        <img [src]="getImage(worker.avatar?.imageThumbUrl)" >
+      </ion-avatar>
+      <h2>{{worker.name}}</h2>
+      <p>{{worker.surname}}</p>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      Contacts
+    </ion-list-header>
+    <ion-item>
+      <ion-icon name="mail" item-left></ion-icon>
+      <a class="list-link" [href]="sanitize('mailto:' + worker.email)">
+        {{worker.email}}
       </a>
-    </div>
-
-    <div class="item item-icon-left item-icon-right" >
-      <i class="icon ion-ios-telephone"></i>
-      {{worker.phone}}
-      <a class="icon user-phone ion-ios-telephone-outline" [href]="'tel:'+worker.phone">
+    </ion-item>
+    <ion-item>
+      <ion-icon name="phone-portrait" item-left></ion-icon>
+      <a class="list-link" [href]="sanitize('tel:' + worker.phone)">
+        {{worker.phone}}
       </a>
-    </div>
-
-    <div class="item item-icon-left item-icon-right" >
-      <i class="icon ion-social-skype"></i>
-      {{worker.skype}}
-      <a class="icon user-phone ion-ios-chatbubble-outline" [href]="'skype:'+ worker.skype +'?chat'">
+    </ion-item>
+    <ion-item>
+      <ion-icon name="logo-skype" item-left></ion-icon>
+      <a class="list-link" [href]="sanitize('skype:' + worker.skype +'?chat')">
+        {{worker.skype}}
       </a>
-    </div>
-  </div>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      Info
+    </ion-list-header>
+    <ion-item>
+      <ion-icon name="school" item-left></ion-icon>
+        {{worker.position}}
+    </ion-item>
+    <ion-item>
+      <ion-icon name="flask" item-left></ion-icon>
+        {{worker.project}}
+    </ion-item>
+    <ion-item>
+      <ion-icon name="happy" item-left></ion-icon>
+        {{worker.bDay}}
+    </ion-item>
+  </ion-list>
+</ion-content>
 
-</ion-content >
+
+  <!--<div class="list" *ngIf="worker">-->
+    <!--<div *ngIf="worker.email" class="item item-icon-left item-icon-right" >-->
+      <!--<i class="icon ion-email"></i>-->
+      <!--{{worker.email}}-->
+      <!--<a class="icon user-phone ion-paper-airplane" [href]="'mailto:'+worker.email">-->
+      <!--</a>-->
+    <!--</div>-->
+
+    <!--<div class="item item-icon-left item-icon-right" >-->
+      <!--<i class="icon ion-ios-telephone"></i>-->
+      <!--{{worker.phone}}-->
+      <!--<a class="icon user-phone ion-ios-telephone-outline" [href]="'tel:'+worker.phone">-->
+      <!--</a>-->
+    <!--</div>-->
+
+    <!--<div class="item item-icon-left item-icon-right" >-->
+      <!--<i class="icon ion-social-skype"></i>-->
+      <!--{{worker.skype}}-->
+      <!--<a class="icon user-phone ion-ios-chatbubble-outline" [href]="'skype:'+ worker.skype +'?chat'">-->
+      <!--</a>-->
+    <!--</div>-->
+  <!--</div>-->
+

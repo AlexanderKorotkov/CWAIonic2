@@ -6,8 +6,7 @@ import { SignInComponent }        from '../pages/auth/signIn/sign-in.component';
 const routes: Routes = [
   { path: '',  component: SignInComponent },
   // { path: '**', redirectTo: '/signIn', pathMatch: 'full'},
-];
-@NgModule({
+];@NgModule({
   imports: [ RouterModule.forRoot(routes) ],
   exports: [ RouterModule ]
 })

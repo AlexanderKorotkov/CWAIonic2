@@ -5,19 +5,20 @@
 </ion-header>
 <ion-content>
   <ion-list>
-      <button ion-button outline icon-left  color="secondary" [navPush]="createCompanyPage">
-        <ion-icon name='briefcase' is-active="false" ></ion-icon>
+      <button ion-item icon-left  [navPush]="createCompanyPage">
+        <ion-icon name="create" item-left></ion-icon>
         Create company
       </button>
-      <button ion-button outline icon-left [navPush]="selectCompanyPage">
-        <ion-icon name='briefcase' is-active="false" ></ion-icon>
+      <button ion-item  icon-left [navPush]="selectCompanyPage">
+        <ion-icon name='swap' item-left></ion-icon>
         Select company
       </button>
-      <button ion-button outline icon-left  [navPush]="changePasswordPage">
-        <ion-icon name='briefcase' is-active="false" ></ion-icon>
+      <button ion-item  icon-left  [navPush]="changePasswordPage">
+        <ion-icon name='key' item-left ></ion-icon>
         Change password
       </button>
   </ion-list>
+
 </ion-content>
 
 

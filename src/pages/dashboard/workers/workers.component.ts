@@ -1,8 +1,9 @@
-import { Component, OnInit }    from '@angular/core';
+import { Component }    from '@angular/core';
 import { NavController } from 'ionic-angular';
-
 import { AuthService }          from '../../../shared/auth/auth.service';
 import {NotificationsService}   from 'angular2-notifications';
+import { LoadingController } from 'ionic-angular';
+
 
 import { WorkersService }       from './workers.service';
 import { WorkerComponent }      from './worker/worker.component';
@@ -14,20 +15,22 @@ import { WorkerDetailsComponent }   from './worker-details/worker-details.compon
     templateUrl: 'workers.component.html',
     entryComponents: [WorkerComponent]
 })
-export class WorkersComponent implements OnInit{
+export class WorkersComponent {
 
     currentUser : any;
     workers:any;
     addWorkerPage:any;
     canDelete:boolean = false;
+    test : any
 
     constructor(
         private nav: NavController,
         private workersService: WorkersService,
         private authService: AuthService,
-        private notificationsService: NotificationsService
+        private notificationsService: NotificationsService,
+        private loading: LoadingController
     ) { }
-    ngOnInit() {
+  ionViewDidEnter() {
         this.currentUser = this.authService.getUserIdentity().user;
         this.addWorkerPage = AddWorkerComponent;
 
@@ -38,9 +41,12 @@ export class WorkersComponent implements OnInit{
             );
         }else{
             this.workersService.fetchCompanyWorkers(this.currentUser.currentCompany.companyId, this.currentUser._id).subscribe(result => {
+              this.test = this.loading.create();
+              this.test.present();
                 this.workers = result.data;
                 this.authService.getUserIdentity()
             },(result) => {
+              this.test.dismiss();
                 this.notificationsService.error(
                     'Error',
                     `${result.error}`

@@ -2,21 +2,26 @@
 import { Injectable } from '@angular/core';
 import { Request, XHRBackend, RequestOptions, Response, Http, RequestOptionsArgs, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Router } from '@angular/router';
 import { AuthService } from './auth/auth.service';
+
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class HttpInterceptorService extends Http {
 
-    constructor(backend: XHRBackend, defaultOptions: RequestOptions, private router: Router, private authService: AuthService) {
+    constructor(backend: XHRBackend,
+                defaultOptions: RequestOptions,
+                private authService: AuthService
+    ){
         super(backend, defaultOptions);
     }
 
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
         //do whatever
-        if (typeof url === 'string') {
+
+
+      if (typeof url === 'string') {
             if (!options) {
                 options = { headers: new Headers() };
             }
@@ -24,6 +29,7 @@ export class HttpInterceptorService extends Http {
         } else {
             this.setHeaders(url);
         }
+
 
         return super.request(url, options).catch(this.catchErrors());
     }
@@ -36,7 +42,7 @@ export class HttpInterceptorService extends Http {
                 if (this.authService.isAuthenticated()) {
                     this.authService.removeUserIdentity();
                 }
-                this.router.navigate(['/signIn']);
+                // this.router.navigate(['/signIn']);
             }
             return Observable.throw(res);
         };

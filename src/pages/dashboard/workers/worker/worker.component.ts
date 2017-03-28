@@ -10,7 +10,7 @@ export class WorkerComponent{
     @Input() canDelete: boolean;
     @Output() deleteWorker = new EventEmitter();
     @Output() goToWorkerDetails = new EventEmitter();
-    default_image = 'img/unknown1.png';
+    default_image: 'src/assets/img/pexels-photo-295826.jpeg';
 
     remove(event:any, worker:any){
         event.stopPropagation();
