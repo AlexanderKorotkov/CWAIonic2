@@ -21,7 +21,7 @@ export class WorkersComponent {
     workers:any;
     addWorkerPage:any;
     canDelete:boolean = false;
-    test : any
+    loadingGif : any;
 
     constructor(
         private nav: NavController,
@@ -33,6 +33,7 @@ export class WorkersComponent {
   ionViewDidEnter() {
         this.currentUser = this.authService.getUserIdentity().user;
         this.addWorkerPage = AddWorkerComponent;
+        this.loadingGif = this.loading.create();
 
         if(!this.currentUser.currentCompany){
             this.notificationsService.alert(
@@ -40,17 +41,17 @@ export class WorkersComponent {
                 `Please select a company`
             );
         }else{
+          this.loadingGif.present();
             this.workersService.fetchCompanyWorkers(this.currentUser.currentCompany.companyId, this.currentUser._id).subscribe(result => {
-              this.test = this.loading.create();
-              this.test.present();
-                this.workers = result.data;
-                this.authService.getUserIdentity()
+              this.loadingGif.dismiss();
+              this.workers = result.data;
+              this.authService.getUserIdentity()
             },(result) => {
-              this.test.dismiss();
-                this.notificationsService.error(
-                    'Error',
-                    `${result.error}`
-                )
+              this.loadingGif.dismiss();
+              this.notificationsService.error(
+                  'Error',
+                  `${result.error}`
+              )
             }) ;
         }
 

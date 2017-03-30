@@ -1,6 +1,6 @@
 <ion-item>
   <ion-thumbnail item-left>
-    <img [src]="getImage(worker.avatar?.imageThumbUrl)" >
+    <img [src]="worker.avatar?.imageThumbUrl || default_image" (error)="updateUrl(worker.avatar)" >
   </ion-thumbnail>
   <h2>{{worker.name}}</h2>
   <p>{{worker.surname}}</p>

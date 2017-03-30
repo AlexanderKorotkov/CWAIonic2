@@ -1,5 +1,4 @@
 import {Injectable}    from '@angular/core';
-import {Router} from '@angular/router';
 import {FileUploader} from 'ng2-file-upload';
 
 import {NotificationsService} from 'angular2-notifications';
@@ -13,8 +12,8 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class UploadAvatarService {
     url:any;
+    default_image: any = '/assets/img/ionic.png' ;
     constructor(
-        private router: Router,
         private authService: AuthService,
         private notificationsService: NotificationsService,
         private configService: ConfigService
@@ -69,6 +68,7 @@ export class UploadAvatarService {
             if (this.authService.isAuthenticated()) {
                 this.authService.removeUserIdentity();
             }
+
             // this.router.navigate(['/signIn']);
         }
         if(status === 200 ){
@@ -76,6 +76,7 @@ export class UploadAvatarService {
                 'Success',
                 `Worker was created`
             );
+
             // this.router.navigate(['/workers']);
         }
         if(status === 400 ){
@@ -85,6 +86,10 @@ export class UploadAvatarService {
                 `${response.error}`
             )
         }
+    };
+
+    updateUrl(avatar:any){
+      avatar.imageThumbUrl = '/assets/img/ionic.png';
     };
 
 }

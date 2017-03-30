@@ -34,6 +34,7 @@ export class WorkerEditComponent implements OnInit{
         bDay: string;
     };
     currentUser : any;
+    uploadService : any;
     isEdit : boolean = true;
 
     ngOnInit() {
@@ -46,6 +47,7 @@ export class WorkerEditComponent implements OnInit{
         }
 
         this.uploader = this.uploadAvatarService.uploader;
+        this.uploadService = this.uploadAvatarService;
         this.uploader.options.url = this.uploadAvatarService.setUploaderUrl('workerEdit');
         this.uploader.onAfterAddingFile = ((item:any) => {
             this.uploadAvatarService.onAfterAddingFile(item);
@@ -53,6 +55,8 @@ export class WorkerEditComponent implements OnInit{
     }
 
     onFileChange(event:any) {
+        var output = <HTMLImageElement>document.querySelector(".worker-img");
+        output.src = URL.createObjectURL(event.target.files[0]);
         this.uploadAvatarService.target = event.target || event.srcElement;
     }
 

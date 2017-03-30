@@ -34,6 +34,7 @@ export class AddWorkerComponent implements OnInit{
         phone: string;
         bDay: string;
     };
+    uploadService : any;
     currentUser : any;
 
     ngOnInit() {
@@ -50,6 +51,7 @@ export class AddWorkerComponent implements OnInit{
         };
         this.currentUser = this.authService.getUserIdentity().user;
 
+        this.uploadService = this.uploadAvatarService;
         this.uploader = this.uploadAvatarService.uploader;
         this.uploader.options.url = this.uploadAvatarService.setUploaderUrl('addWorker');
 
@@ -60,7 +62,9 @@ export class AddWorkerComponent implements OnInit{
     }
 
     onFileChange(event:any) {
-        this.uploadAvatarService.target = event.target || event.srcElement;
+      var output = <HTMLImageElement>document.querySelector(".worker-img")
+      output.src = URL.createObjectURL(event.target.files[0]);
+      this.uploadAvatarService.target = event.target || event.srcElement;
     }
 
     sendUser(){

@@ -10,18 +10,18 @@ export class WorkerComponent{
     @Input() canDelete: boolean;
     @Output() deleteWorker = new EventEmitter();
     @Output() goToWorkerDetails = new EventEmitter();
-    default_image: 'src/assets/img/pexels-photo-295826.jpeg';
+    default_image: any ='/assets/img/ionic.png' ;
 
     remove(event:any, worker:any){
         event.stopPropagation();
         this.deleteWorker.emit(worker)
     }
 
-    getImage(imageUrl:any){
-        return imageUrl ? imageUrl : this.default_image;
-    };
-
     workerDetails(worker:any){
         this.goToWorkerDetails.emit(worker);
+    };
+
+    updateUrl(avatar:any){
+      avatar.imageThumbUrl = '/assets/img/ionic.png';
     };
 }

@@ -14,11 +14,6 @@
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
   <allow-intent href="skype:*"/>
-  <platform name="android">
-    <allow-intent href="market:*"/>
-    <uses-permission android:name="android.permission.READ_CALENDAR"/>
-    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
-  </platform>
   <platform name="ios">
     <allow-intent href="itms:*"/>
     <allow-intent href="itms-apps:*"/>

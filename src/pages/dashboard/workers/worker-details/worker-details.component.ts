@@ -15,7 +15,7 @@ export class WorkerDetailsComponent {
     currentUser:any;
     worker:any;
     editPage:any;
-    default_image: 'src/assets/img/pexels-photo-295826.jpeg';
+    default_image: any = '/assets/img/ionic.png' ;
 
     constructor(
         private workersService: WorkersService,
@@ -48,7 +48,7 @@ export class WorkerDetailsComponent {
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
-  getImage(imageUrl:any){
-    return imageUrl ? imageUrl : this.default_image;
+  updateUrl(avatar:any){
+    avatar.imageThumbUrl = this.default_image;
   };
 }
