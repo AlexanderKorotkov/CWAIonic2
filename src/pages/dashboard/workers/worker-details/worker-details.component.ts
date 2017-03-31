@@ -15,7 +15,7 @@ export class WorkerDetailsComponent {
     currentUser:any;
     worker:any;
     editPage:any;
-    default_image: any = '/assets/img/ionic.png' ;
+    default_image: any = 'assets/img/ionic.png' ;
 
     constructor(
         private workersService: WorkersService,

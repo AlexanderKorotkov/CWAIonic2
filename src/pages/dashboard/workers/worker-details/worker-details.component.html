@@ -7,7 +7,9 @@
 
 <ion-content *ngIf="worker">
 
-  <button *ngIf="currentUser?.role && worker" ion-button color="primary" block type="button" [navPush]="editPage">Edit</button>
+  <ion-item>
+    <button *ngIf="currentUser?.role && worker" padding ion-button color="primary" block type="button" [navPush]="editPage">Edit</button>
+  </ion-item>
 
   <ion-list >
     <ion-item>

@@ -10,12 +10,13 @@
     <form name="addWorkerForm" *ngIf="workerInfo">
       <ion-item>
         <ion-thumbnail item-left>
+          {{workerInfo.avatar?.imageThumbUrl}}
           <img class="worker-img" [src]="workerInfo.avatar?.imageThumbUrl || uploadService.default_image" (error)="uploadService.updateUrl(workerInfo.avatar)"  />
         </ion-thumbnail>
-        <div class="fileUpload btn btn-primary">
+        <button ion-button class="fileUpload btn btn-primary">
           <span>Upload</span>
           <input  type="file" class="upload" (change)="onFileChange($event)" ng2FileSelect [uploader]="uploader">
-        </div>
+        </button>
       </ion-item>
 
       <ion-item>
@@ -51,10 +52,10 @@
         <ion-label floating>bDay</ion-label>
         <ion-input type="text" [(ngModel)]="workerInfo.bDay" name="bDay" id="bDay" ></ion-input>
       </ion-item>
-      <div padding>
+      <ion-item padding>
         <button *ngIf="!isEdit" ion-button color="primary" block type="button" (click)="sendUser()">Add Worker</button>
         <button *ngIf="isEdit" ion-button color="primary" block type="button" (click)="updateWorker()">Edit Worker</button>
-      </div>
+      </ion-item>
     </form>
   </ion-list>
 </ion-content>

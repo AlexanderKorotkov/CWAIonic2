@@ -12,7 +12,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class UploadAvatarService {
     url:any;
-    default_image: any = '/assets/img/ionic.png' ;
+    default_image: any = 'assets/img/ionic.png' ;
     constructor(
         private authService: AuthService,
         private notificationsService: NotificationsService,
@@ -34,7 +34,6 @@ export class UploadAvatarService {
     }
 
     setUploaderUrl(type:string){
-      console.log(type)
         if(type === 'addWorker'){
             return this.addNewWorkerUploadUrl = `${this.configService.getConfig().apiMainUrl}/company/${type}`;
         }else{
@@ -95,7 +94,7 @@ export class UploadAvatarService {
 
     updateUrl(avatar:any){
       if(avatar){
-        avatar.imageThumbUrl = '/assets/img/ionic.png';
+        avatar.imageThumbUrl = this.default_image;
       }
 
     };

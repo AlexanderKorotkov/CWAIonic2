@@ -7,11 +7,14 @@
 <ion-content >
 
   <ion-list *ngIf="workers">
-    <button *ngIf="currentUser?.role && worker" ion-button color="primary" block type="button" [navPush]="editPage">Edit</button>
-    <button *ngIf="currentUser.role" ion-button color="primary" type="button" block icon-left [navPush]="addWorkerPage" [navParams]="{url : '/addWorker'}">
-      <ion-icon name='people'></ion-icon>
-      Add a new User
-    </button>
+
+    <ion-item >
+      <button *ngIf="currentUser.role" padding ion-button color="primary" type="button" block icon-left [navPush]="addWorkerPage" [navParams]="{url : '/addWorker'}">
+        <ion-icon name='people'></ion-icon>
+        Add a new User
+      </button>
+    </ion-item>
+
     <ion-item *ngIf="workers && workers.length !== 0 && currentUser.role" (click)="showDeleteButton()">
       <ion-label>Show remove button </ion-label>
       <ion-toggle checked="canDelete" ></ion-toggle>
