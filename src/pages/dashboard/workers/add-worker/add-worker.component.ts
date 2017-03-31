@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-
+import { PhotoLibrary } from '@ionic-native/photo-library';
 import { AuthService } from '../../../../shared/auth/auth.service';
 import {NotificationsService} from 'angular2-notifications';
 
@@ -11,7 +11,7 @@ import { UploadAvatarService } from '../shared/upload-avatar.service';
     selector: 'add-worker',
     templateUrl: '../shared/add-edit-worker.component.html'
 })
-export class AddWorkerComponent implements OnInit{
+export class AddWorkerComponent{
 
     constructor(
         private addWorkerService: AddWorkerService,
@@ -19,7 +19,8 @@ export class AddWorkerComponent implements OnInit{
         private uploadAvatarService: UploadAvatarService,
         private notificationsService: NotificationsService,
         private nav: NavController,
-        private navParams: NavParams
+        private navParams: NavParams,
+        private photoLibrary: PhotoLibrary
     ) {
       this.uploadAvatarService.url = this.navParams.get('url');
     }
@@ -37,7 +38,7 @@ export class AddWorkerComponent implements OnInit{
     uploadService : any;
     currentUser : any;
 
-    ngOnInit() {
+  ionViewDidEnter() {
 
         this.workerInfo = {
             name: '',
@@ -52,17 +53,22 @@ export class AddWorkerComponent implements OnInit{
         this.currentUser = this.authService.getUserIdentity().user;
 
         this.uploadService = this.uploadAvatarService;
-        this.uploader = this.uploadAvatarService.uploader;
+        this.uploader = this.uploadService.initUploader();
         this.uploader.options.url = this.uploadAvatarService.setUploaderUrl('addWorker');
 
         this.uploader.onAfterAddingFile = ((item:any) => {
             this.uploadAvatarService.onAfterAddingFile(item);
         });
 
+    this.photoLibrary.requestAuthorization().then(() => {
+      this.photoLibrary.getLibrary().subscribe({
+        complete: () => { console.log("could not get photos"); }
+      });
+    }).catch(err => console.log("permissions weren't granted"));
     }
 
     onFileChange(event:any) {
-      var output = <HTMLImageElement>document.querySelector(".worker-img")
+      var output = <HTMLImageElement>document.querySelector(".worker-img");
       output.src = URL.createObjectURL(event.target.files[0]);
       this.uploadAvatarService.target = event.target || event.srcElement;
     }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {NotificationsService} from 'angular2-notifications';
+import { PhotoLibrary } from '@ionic-native/photo-library';
 
 import { AuthService } from '../../../../shared/auth/auth.service';
 import { WorkerEditService } from './worker-edit.service';
@@ -11,7 +12,7 @@ import { UploadAvatarService } from '../shared/upload-avatar.service';
     selector: 'worker-edit',
     templateUrl: '../shared/add-edit-worker.component.html'
 })
-export class WorkerEditComponent implements OnInit{
+export class WorkerEditComponent {
 
     constructor(
         private uploadAvatarService: UploadAvatarService,
@@ -19,7 +20,8 @@ export class WorkerEditComponent implements OnInit{
         private authService: AuthService,
         private nav: NavController,
         private workersService: WorkersService,
-        private notificationsService: NotificationsService
+        private notificationsService: NotificationsService,
+        private photoLibrary: PhotoLibrary
     ) { }
 
     uploader: any;
@@ -37,21 +39,29 @@ export class WorkerEditComponent implements OnInit{
     uploadService : any;
     isEdit : boolean = true;
 
-    ngOnInit() {
+  ionViewDidEnter() {
 
-        this.currentUser = this.authService.getUserIdentity().user;
-        if(this.workersService.currentWorker){
-            this.workerInfo = this.workersService.currentWorker
-        }else{
-            this.nav.pop();
-        }
+      this.currentUser = this.authService.getUserIdentity().user;
+      if(this.workersService.currentWorker){
+          this.workerInfo = this.workersService.currentWorker
+      }else{
+          this.nav.pop();
+      }
 
-        this.uploader = this.uploadAvatarService.uploader;
-        this.uploadService = this.uploadAvatarService;
-        this.uploader.options.url = this.uploadAvatarService.setUploaderUrl('workerEdit');
-        this.uploader.onAfterAddingFile = ((item:any) => {
-            this.uploadAvatarService.onAfterAddingFile(item);
+      this.uploadService = this.uploadAvatarService;
+      this.uploader = this.uploadService.initUploader();
+      this.uploader.options.url = this.uploadAvatarService.setUploaderUrl('workerEdit');
+      this.uploader.onAfterAddingFile = ((item:any) => {
+          this.uploadAvatarService.onAfterAddingFile(item);
+      });
+
+      //TODO refactor this
+      this.photoLibrary.requestAuthorization().then(() => {
+        this.photoLibrary.getLibrary().subscribe({
+          complete: () => { console.log("could not get photos"); }
         });
+      }).catch(err => console.log("permissions weren't granted"));
+
     }
 
     onFileChange(event:any) {

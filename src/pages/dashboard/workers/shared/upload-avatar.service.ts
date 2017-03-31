@@ -24,12 +24,17 @@ export class UploadAvatarService {
     private token = this.authService.getUserIdentity().token;
 
     public target:any;
+    public uploader:any;
 
-    public uploader:FileUploader = new FileUploader({
+
+    initUploader(){
+    return this.uploader = new FileUploader({
         authToken: this.token
-    });
+      });
+    }
 
     setUploaderUrl(type:string){
+      console.log(type)
         if(type === 'addWorker'){
             return this.addNewWorkerUploadUrl = `${this.configService.getConfig().apiMainUrl}/company/${type}`;
         }else{
@@ -89,7 +94,10 @@ export class UploadAvatarService {
     };
 
     updateUrl(avatar:any){
-      avatar.imageThumbUrl = '/assets/img/ionic.png';
+      if(avatar){
+        avatar.imageThumbUrl = '/assets/img/ionic.png';
+      }
+
     };
 
 }

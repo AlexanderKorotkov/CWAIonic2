@@ -49,7 +49,7 @@
       </ion-item>
       <ion-item>
         <ion-label floating>bDay</ion-label>
-        <ion-input type="text" [(ngModel)]="workerInfo.bDay" name="phone" id="bDay" ></ion-input>
+        <ion-input type="text" [(ngModel)]="workerInfo.bDay" name="bDay" id="bDay" ></ion-input>
       </ion-item>
       <div padding>
         <button *ngIf="!isEdit" ion-button color="primary" block type="button" (click)="sendUser()">Add Worker</button>
@@ -59,27 +59,3 @@
   </ion-list>
 </ion-content>
 
-
-
-<!--<div class="content">-->
-        <!--<form action="">-->
-            <!--<div class="list" *ngIf="workerInfo">-->
-
-                <!--<div class="form-group">-->
-                    <!--<label class="item item-input item-stacked-label">-->
-                        <!--<span class="input-label">Single</span>-->
-
-                        <!--<input type="file" (change)="onFileChange($event)" ng2FileSelect [uploader]="uploader" />-->
-                    <!--</label>-->
-                <!--</div>-->
-
-            <!--</div>-->
-        <!--</form>-->
-        <!--<button class="button button-balanced button-small" (click)="sendUser(user)">-->
-            <!--Submit-->
-        <!--</button>-->
-        <!--<button ng-if="isEdit" class="button button-balanced button-small" ng-click="updateUser(userData)">-->
-            <!--Update-->
-        <!--</button>-->
-
-<!--</div>-->
