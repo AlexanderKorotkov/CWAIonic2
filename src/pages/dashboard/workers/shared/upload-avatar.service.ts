@@ -1,5 +1,8 @@
 import {Injectable}    from '@angular/core';
 import {FileUploader} from 'ng2-file-upload';
+import { App } from 'ionic-angular';
+
+import { SignInComponent } from '../../../auth/signIn/sign-in.component';
 
 import {NotificationsService} from 'angular2-notifications';
 import {ConfigService} from '../../../../shared/config/config.service';
@@ -12,12 +15,13 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class UploadAvatarService {
     url:any;
-    default_image: any = 'assets/img/ionic.png' ;
+    nav: any;
     constructor(
-        private authService: AuthService,
-        private notificationsService: NotificationsService,
-        private configService: ConfigService
-    ) { }
+      private app: App,
+      private authService: AuthService,
+      private notificationsService: NotificationsService,
+      private configService: ConfigService
+    ) {  }
 
     private addNewWorkerUploadUrl : any;
     private updateWorkerUploadUrl : any;
@@ -68,35 +72,29 @@ export class UploadAvatarService {
     };
 
     onCompleteItem(item:any, response:any, status:any){
-        if (status === 401 || status === 403) {
-            if (this.authService.isAuthenticated()) {
-                this.authService.removeUserIdentity();
-            }
-
-            // this.router.navigate(['/signIn']);
-        }
-        if(status === 200 ){
-            this.notificationsService.success(
-                'Success',
-                `Worker was created`
-            );
-
-            // this.router.navigate(['/workers']);
-        }
-        if(status === 400 ){
-            response = JSON.parse(response);
-            this.notificationsService.error(
-                'Error',
-                `${response.error}`
-            )
-        }
-    };
-
-    updateUrl(avatar:any){
-      if(avatar){
-        avatar.imageThumbUrl = this.default_image;
+      this.nav = this.app.getActiveNav();
+      if (status === 401 || status === 403) {
+          if (this.authService.isAuthenticated()) {
+              this.authService.removeUserIdentity();
+          }
+        this.nav.setRoot(SignInComponent)
       }
-
+      if(status === 200 ){
+          this.notificationsService.success(
+              'Success',
+              `Worker was created`
+          );
+        this.nav.pop();
+      }
+      if(status === 400 ){
+          response = JSON.parse(response);
+          this.notificationsService.error(
+              'Error',
+              `${response.error}`
+          )
+      }
     };
+
+
 
 }

@@ -42,17 +42,18 @@ export class WorkersComponent {
             );
         }else{
           this.loadingGif.present();
-            this.workersService.fetchCompanyWorkers(this.currentUser.currentCompany.companyId, this.currentUser._id).subscribe(result => {
-              this.loadingGif.dismiss();
-              this.workers = result.data;
-              this.authService.getUserIdentity()
-            },(result) => {
-              this.loadingGif.dismiss();
-              this.notificationsService.error(
-                  'Error',
-                  `${result.error}`
-              )
-            }) ;
+
+          this.workersService.fetchCompanyWorkers(this.currentUser.currentCompany.companyId, this.currentUser._id).subscribe(result => {
+            this.loadingGif.dismiss();
+            this.workers = result.data;
+            this.authService.getUserIdentity()
+          },(result) => {
+            this.loadingGif.dismiss();
+            this.notificationsService.error(
+                'Error',
+                `${result.error}`
+            )
+          }) ;
         }
 
     }
@@ -79,11 +80,6 @@ export class WorkersComponent {
 
     showDeleteButton(){
         this.canDelete = !this.canDelete;
-    };
-
-    logOut(){
-        this.authService.removeUserIdentity();
-        // this.route.navigate([`${'/'}`])
     };
 
 }

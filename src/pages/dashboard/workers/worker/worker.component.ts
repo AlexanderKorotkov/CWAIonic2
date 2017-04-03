@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter} from '@angular/core';
+import { ImgService } from '../../../../shared/img-service/img.service';
 
 @Component({
     selector: 'worker',
@@ -6,6 +7,13 @@ import { Component, Input, Output, EventEmitter} from '@angular/core';
 })
 
 export class WorkerComponent{
+  imgService: any;
+  constructor(
+    private img: ImgService,
+  ) {
+    this.imgService = this.img;
+  }
+
     @Input() worker: any;
     @Input() canDelete: boolean;
     @Output() deleteWorker = new EventEmitter();
@@ -21,7 +29,4 @@ export class WorkerComponent{
         this.goToWorkerDetails.emit(worker);
     };
 
-    updateUrl(avatar:any){
-      avatar.imageThumbUrl = this.default_image;
-    };
 }

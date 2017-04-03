@@ -10,8 +10,7 @@
     <form name="addWorkerForm" *ngIf="workerInfo">
       <ion-item>
         <ion-thumbnail item-left>
-          {{workerInfo.avatar?.imageThumbUrl}}
-          <img class="worker-img" [src]="workerInfo.avatar?.imageThumbUrl || uploadService.default_image" (error)="uploadService.updateUrl(workerInfo.avatar)"  />
+          <img class="worker-img" [src]="workerInfo.avatar?.imageThumbUrl || imgService.default_image" (error)="imgService.updateUrl(workerInfo.avatar)"  />
         </ion-thumbnail>
         <button ion-button class="fileUpload btn btn-primary">
           <span>Upload</span>

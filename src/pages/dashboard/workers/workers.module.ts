@@ -22,7 +22,7 @@ import { UploadAvatarService }     from './shared/upload-avatar.service';
 @NgModule({
     imports: [
         WorkersRoutingModule,
-        SharedModule
+        SharedModule,
     ],
     declarations: [
         WorkersComponent,
@@ -30,7 +30,7 @@ import { UploadAvatarService }     from './shared/upload-avatar.service';
         AddWorkerComponent,
         WorkerDetailsComponent,
         WorkerEditComponent,
-        FileSelectDirective
+        FileSelectDirective,
     ],
     entryComponents: [
       WorkersComponent,

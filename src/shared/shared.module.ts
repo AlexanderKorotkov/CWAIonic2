@@ -4,7 +4,7 @@ import { IonicModule } from 'ionic-angular';
 import { BrowserModule }           from '@angular/platform-browser';
 import { FormsModule }             from '@angular/forms';
 import { HttpModule }              from '@angular/http';
-import { CommonModule }        from '@angular/common';
+import { CommonModule }            from '@angular/common';
 import {SimpleNotificationsModule} from 'angular2-notifications';
 import {NotificationsService}      from 'angular2-notifications';
 
@@ -13,6 +13,7 @@ import {HttpInterceptorService}    from './http-interceptor';
 
 import { AuthService }              from './auth/auth.service';
 import { ConfigService }            from './config/config.service';
+import { ImgService }               from './img-service/img.service';
 
 @NgModule({
     exports: [
@@ -27,6 +28,7 @@ import { ConfigService }            from './config/config.service';
         AuthService,
         ConfigService,
         NotificationsService,
+        ImgService,
         { provide: Http, useClass: HttpInterceptorService }
     ]
 })

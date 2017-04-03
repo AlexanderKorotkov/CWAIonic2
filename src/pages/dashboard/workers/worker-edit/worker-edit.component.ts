@@ -7,13 +7,31 @@ import { AuthService } from '../../../../shared/auth/auth.service';
 import { WorkerEditService } from './worker-edit.service';
 import { WorkersService } from '../workers.service';
 import { UploadAvatarService } from '../shared/upload-avatar.service';
+import { ImgService } from '../../../../shared/img-service/img.service';
+import { LoadingController } from 'ionic-angular';
 
 @Component({
     selector: 'worker-edit',
     templateUrl: '../shared/add-edit-worker.component.html'
 })
 export class WorkerEditComponent {
-
+  uploader: any;
+  workerInfo: {
+    name: string;
+    surname: string;
+    email: string;
+    position: string;
+    project: string;
+    skype: string;
+    phone: string;
+    bDay: string;
+    avatar: any;
+  };
+  currentUser : any;
+  uploadService : any;
+  isEdit : boolean = true;
+  imgService: any;
+  loadingGif : any;
     constructor(
         private uploadAvatarService: UploadAvatarService,
         private workerEditService: WorkerEditService,
@@ -21,23 +39,10 @@ export class WorkerEditComponent {
         private nav: NavController,
         private workersService: WorkersService,
         private notificationsService: NotificationsService,
-        private photoLibrary: PhotoLibrary
+        private photoLibrary: PhotoLibrary,
+        private loading: LoadingController,
+        private img: ImgService,
     ) { }
-
-    uploader: any;
-    workerInfo: {
-        name: string;
-        surname: string;
-        email: string;
-        position: string;
-        project: string;
-        skype: string;
-        phone: string;
-        bDay: string;
-    };
-    currentUser : any;
-    uploadService : any;
-    isEdit : boolean = true;
 
   ionViewDidEnter() {
 
@@ -47,6 +52,7 @@ export class WorkerEditComponent {
       }else{
           this.nav.pop();
       }
+      this.imgService = this.img;
 
       this.uploadService = this.uploadAvatarService;
       this.uploader = this.uploadService.initUploader();
@@ -71,28 +77,33 @@ export class WorkerEditComponent {
     }
 
     updateWorker(){
+      this.loadingGif = this.loading.create();
+      this.loadingGif.present();
         if(this.uploader.queue[0]){
-            this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
-                this.uploadAvatarService.onBuildItemForm(fileItem, form, this.workerInfo, this.currentUser.currentCompany);
-            };
+          this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
+              this.uploadAvatarService.onBuildItemForm(fileItem, form, this.workerInfo, this.currentUser.currentCompany);
+          };
 
-            this.uploadAvatarService.uploadFile(this.uploader.queue[0]);
-            this.uploader.onCompleteItem = (item:any, response:any, status:any) => {
-                this.uploadAvatarService.onCompleteItem(item, response, status);
-            };
+          this.uploadAvatarService.uploadFile(this.uploader.queue[0]);
+          this.uploader.onCompleteItem = (item:any, response:any, status:any) => {
+            this.loadingGif.dismiss();
+              this.uploadAvatarService.onCompleteItem(item, response, status);
+          };
         }else {
-            this.workerEditService.updateWorker(this.workerInfo, this.currentUser.currentCompany.companyId).subscribe(() => {
-                this.nav.pop();
-                this.notificationsService.success(
-                    'Success',
-                    `Worker was updated successfully`
-                )
-            }, (result) => {
-                this.notificationsService.error(
-                    'Error',
-                    `${result.error}`
-                )
-            });
+          this.workerEditService.updateWorker(this.workerInfo, this.currentUser.currentCompany.companyId).subscribe(() => {
+            this.loadingGif.dismiss();
+            this.notificationsService.success(
+                'Success',
+                `Worker was updated successfully`
+            );
+            this.nav.pop();
+          }, (result) => {
+            this.loadingGif.dismiss();
+            this.notificationsService.error(
+                'Error',
+                `${result.error}`
+            )
+          });
         }
     }
 }

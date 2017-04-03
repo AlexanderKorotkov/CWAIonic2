@@ -11,7 +11,7 @@ export class DashboardComponent{
   workers: any;
 
   constructor() {
-    this.menu = MenuComponent;
     this.workers = WorkersComponent;
+    this.menu = MenuComponent;
   }
 }

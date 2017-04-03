@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from '../../../../shared/auth/auth.service';
 import { WorkersService } from '../workers.service';
 import { WorkerEditComponent } from '../worker-edit/worker-edit.component';
+import { ImgService } from '../../../../shared/img-service/img.service';
 
 @Component({
     selector: 'worker-details',
@@ -15,16 +16,18 @@ export class WorkerDetailsComponent {
     currentUser:any;
     worker:any;
     editPage:any;
-    default_image: any = 'assets/img/ionic.png' ;
+    imgService:any;
 
     constructor(
         private workersService: WorkersService,
         private authService: AuthService,
         private sanitizer: DomSanitizer,
+        private img: ImgService,
         // private calendar: Calendar
     ) {
       this.currentUser = this.authService.getUserIdentity().user;
       this.editPage = WorkerEditComponent;
+      this.imgService = this.img;
       if(this.workersService.currentWorker){
         this.worker = this.workersService.currentWorker;
       }
@@ -48,7 +51,4 @@ export class WorkerDetailsComponent {
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
-  updateUrl(avatar:any){
-    avatar.imageThumbUrl = this.default_image;
-  };
 }
