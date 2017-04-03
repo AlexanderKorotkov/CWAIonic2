@@ -48,8 +48,8 @@
         <ion-input type="text" [(ngModel)]="workerInfo.phone" name="phone" id="phone" ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating>bDay</ion-label>
-        <ion-input type="text" [(ngModel)]="workerInfo.bDay" name="bDay" id="bDay" ></ion-input>
+        <ion-label >bDay</ion-label>
+        <ion-input type="date" [(ngModel)]="workerInfo.bDay" name="bDay" id="bDay" ></ion-input>
       </ion-item>
       <ion-item padding>
         <button *ngIf="!isEdit" ion-button color="primary" block type="button" (click)="sendUser()">Add Worker</button>

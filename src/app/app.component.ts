@@ -21,7 +21,7 @@ export class AppComponent {
 
   public options = {
     position: ["bottom", "right"],
-    timeOut: 5000,
+    timeOut: 3000,
     lastOnBottom: true
   };
 

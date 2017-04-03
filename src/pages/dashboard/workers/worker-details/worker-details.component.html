@@ -5,13 +5,13 @@
 </ion-header>
 
 
-<ion-content *ngIf="worker">
+<ion-content >
 
-  <ion-item>
-    <button *ngIf="currentUser?.role && worker" padding ion-button color="primary" block type="button" [navPush]="editPage">Edit</button>
-  </ion-item>
+  <ion-list *ngIf="worker">
 
-  <ion-list >
+    <ion-item>
+      <button *ngIf="currentUser?.role && worker" padding ion-button color="primary" block type="button" [navPush]="editPage">Edit</button>
+    </ion-item>
     <ion-item>
       <ion-avatar item-left>
         <img [src]="worker.avatar?.imageThumbUrl || imgService.default_image" (error)="imgService.updateUrl(worker.avatar)" >
@@ -21,7 +21,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-list>
+  <ion-list *ngIf="worker">
     <ion-list-header>
       Contacts
     </ion-list-header>
@@ -44,7 +44,7 @@
       </a>
     </ion-item>
   </ion-list>
-  <ion-list>
+  <ion-list *ngIf="worker">
     <ion-list-header>
       Info
     </ion-list-header>
@@ -56,34 +56,10 @@
       <ion-icon name="flask" item-left></ion-icon>
         {{worker.project}}
     </ion-item>
-    <ion-item>
+    <ion-item (click)="createCalendarBDayEvent(worker.bDay)">
       <ion-icon name="happy" item-left></ion-icon>
         {{worker.bDay}}
     </ion-item>
   </ion-list>
 </ion-content>
-
-
-  <!--<div class="list" *ngIf="worker">-->
-    <!--<div *ngIf="worker.email" class="item item-icon-left item-icon-right" >-->
-      <!--<i class="icon ion-email"></i>-->
-      <!--{{worker.email}}-->
-      <!--<a class="icon user-phone ion-paper-airplane" [href]="'mailto:'+worker.email">-->
-      <!--</a>-->
-    <!--</div>-->
-
-    <!--<div class="item item-icon-left item-icon-right" >-->
-      <!--<i class="icon ion-ios-telephone"></i>-->
-      <!--{{worker.phone}}-->
-      <!--<a class="icon user-phone ion-ios-telephone-outline" [href]="'tel:'+worker.phone">-->
-      <!--</a>-->
-    <!--</div>-->
-
-    <!--<div class="item item-icon-left item-icon-right" >-->
-      <!--<i class="icon ion-social-skype"></i>-->
-      <!--{{worker.skype}}-->
-      <!--<a class="icon user-phone ion-ios-chatbubble-outline" [href]="'skype:'+ worker.skype +'?chat'">-->
-      <!--</a>-->
-    <!--</div>-->
-  <!--</div>-->
 

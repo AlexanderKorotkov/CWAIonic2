@@ -2,6 +2,7 @@ import { NgModule }                from '@angular/core';
 
 import { FileSelectDirective }     from 'ng2-file-upload';
 import { PhotoLibrary } from '@ionic-native/photo-library';
+import {Calendar} from '@ionic-native/calendar';
 import {SharedModule}              from '../../../shared/shared.module';
 
 import { WorkersRoutingModule }    from './workers-routing.module';
@@ -44,7 +45,8 @@ import { UploadAvatarService }     from './shared/upload-avatar.service';
         AddWorkerService,
         WorkerEditService,
         UploadAvatarService,
-        PhotoLibrary
+        PhotoLibrary,
+        Calendar
     ],
 })
 export class WorkersModule { }

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-// import {Calendar} from '@ionic-native/calendar';
+import {Calendar} from '@ionic-native/calendar';
 
 import { AuthService } from '../../../../shared/auth/auth.service';
 import { WorkersService } from '../workers.service';
 import { WorkerEditComponent } from '../worker-edit/worker-edit.component';
 import { ImgService } from '../../../../shared/img-service/img.service';
+import * as moment from 'moment';
 
 @Component({
     selector: 'worker-details',
@@ -23,30 +24,32 @@ export class WorkerDetailsComponent {
         private authService: AuthService,
         private sanitizer: DomSanitizer,
         private img: ImgService,
-        // private calendar: Calendar
-    ) {
-      this.currentUser = this.authService.getUserIdentity().user;
-      this.editPage = WorkerEditComponent;
-      this.imgService = this.img;
-      if(this.workersService.currentWorker){
-        this.worker = this.workersService.currentWorker;
-      }
+        private calendar: Calendar
+    ) { }
 
-
-      // this.calendar.createCalendar('MyCalendar').then(
-      //   (msg) => { console.log(msg); },
-      //   (err) => { console.log(err); }
-      // );
-
-
+  ionViewDidEnter() {
+    this.currentUser = this.authService.getUserIdentity().user;
+    this.editPage = WorkerEditComponent;
+    this.imgService = this.img;
+    if(this.workersService.currentWorker){
+      this.worker = this.workersService.currentWorker;
+      this.worker.bDay = moment(this.worker.bDay).format('DD-MM-YYYY');
     }
 
-  // ionViewDidEnter() {
-  //   this.calendar.createEvent('title', 'location', 'notes', new Date(), new Date()).then(
-  //     (msg) => { console.log(msg); },
-  //     (err) => { console.log(err); }
-  //   );
-  // }
+
+
+
+  }
+
+  createCalendarBDayEvent(bDay:any){
+    let eventDate = moment(bDay).set('year', moment().year()).toDate();
+    let options = this.calendar.getCalendarOptions();
+    this.calendar.createEventInteractivelyWithOptions(`${this.worker.name}  ${this.worker.surname} Birthday`, '', '', eventDate, eventDate, options).then(
+      (msg) => { console.log(JSON.stringify(msg)) },
+      (err) => { console.log(JSON.stringify(err)); }
+    );
+  }
+
   sanitize(url: string) {
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
