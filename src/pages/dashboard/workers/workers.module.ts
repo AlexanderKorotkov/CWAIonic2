@@ -17,13 +17,14 @@ import { WorkersService }          from './workers.service';
 import { AddWorkerService }        from './add-worker/add-worker.service';
 import { WorkerEditService }       from './worker-edit/worker-edit.service';
 import { UploadAvatarService }     from './shared/upload-avatar.service';
-
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
     imports: [
         WorkersRoutingModule,
         SharedModule,
+        FormsModule
     ],
     declarations: [
         WorkersComponent,

@@ -7,7 +7,7 @@
 
 <ion-content>
   <ion-list>
-    <form name="addWorkerForm" *ngIf="workerInfo">
+    <form name="addWorkerForm" [formGroup]="workerInfo" *ngIf="workerInfo" novalidate>
       <ion-item>
         <ion-thumbnail item-left>
           <img class="worker-img" [src]="workerInfo.avatar?.imageThumbUrl || imgService.default_image" (error)="imgService.updateUrl(workerInfo.avatar)"  />
@@ -20,42 +20,44 @@
 
       <ion-item>
         <ion-label floating>First Name</ion-label>
-        <ion-input  type="text" [(ngModel)]="workerInfo.name" name="name" id="name" required></ion-input>
+        <ion-input  type="text"  formControlName="name" id="name" required></ion-input>
       </ion-item>
-
       <ion-item>
         <ion-label floating>Last Name</ion-label>
-        <ion-input type="text" [(ngModel)]="workerInfo.surname" name="surname" id="surname" required></ion-input>
+        <ion-input type="text"  formControlName="surname" id="surname" required></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Email</ion-label>
-        <ion-input type="text" [(ngModel)]="workerInfo.email" name="email" id="email" required></ion-input>
+        <ion-input type="text"  formControlName="email" id="email" required></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Position</ion-label>
-        <ion-input type="text" [(ngModel)]="workerInfo.position" name="position" id="position" ></ion-input>
+        <ion-input type="text"  formControlName="position" id="position" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Project</ion-label>
-        <ion-input type="text" [(ngModel)]="workerInfo.project" name="project" id="project" ></ion-input>
+        <ion-input type="text"   formControlName="project" id="project" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Skype</ion-label>
-        <ion-input type="text" [(ngModel)]="workerInfo.skype" name="skype" id="skype" ></ion-input>
+        <ion-input type="text"  formControlName="skype" id="skype" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Phone</ion-label>
-        <ion-input type="text" [(ngModel)]="workerInfo.phone" name="phone" id="phone" ></ion-input>
+        <ion-input type="text"  formControlName="phone" id="phone" ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label >bDay</ion-label>
-        <ion-input type="date" [(ngModel)]="workerInfo.bDay" name="bDay" id="bDay" ></ion-input>
+        <ion-input type="date"  formControlName="bDay" id="bDay" ></ion-input>
       </ion-item>
       <ion-item padding>
-        <button *ngIf="!isEdit" ion-button color="primary" block type="button" (click)="sendUser()">Add Worker</button>
-        <button *ngIf="isEdit" ion-button color="primary" block type="button" (click)="updateWorker()">Edit Worker</button>
+        <button *ngIf="!isEdit" ion-button color="primary" block type="button" (click)="sendUser()" [disabled]="!workerInfo.valid">Add Worker</button>
+        <button *ngIf="isEdit" ion-button color="primary" block type="button" (click)="updateWorker()" [disabled]="!workerInfo.valid">Edit Worker</button>
       </ion-item>
     </form>
   </ion-list>
 </ion-content>
+    <!---->
+
+
 

@@ -4,6 +4,9 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
 import { AuthService } from '../../../../shared/auth/auth.service';
 import {NotificationsService} from 'angular2-notifications';
 
+import { Validators, FormGroup, FormControl} from '@angular/forms';
+
+
 import { AddWorkerService } from './add-worker.service';
 import { UploadAvatarService } from '../shared/upload-avatar.service';
 import { ImgService } from '../../../../shared/img-service/img.service';
@@ -15,23 +18,12 @@ import { LoadingController } from 'ionic-angular';
 })
 export class AddWorkerComponent{
   uploader: any;
-  workerInfo: {
-    name: string ;
-    surname: string;
-    email: string;
-    position: string;
-    project: string;
-    skype: string;
-    phone: string;
-    bDay: string;
-    avatar: any
-  };
+  workerInfo: any;
   uploadService : any;
   currentUser : any;
 
   imgService: any;
   loadingGif : any;
-
   constructor(
         private addWorkerService: AddWorkerService,
         private authService: AuthService,
@@ -49,17 +41,18 @@ export class AddWorkerComponent{
 
   ionViewDidEnter() {
 
-      this.workerInfo = {
-          name: '',
-          surname: '',
-          email: '',
-          position: '',
-          project: '',
-          skype: '',
-          phone: '',
-          bDay: '',
-          avatar: {}
-      };
+    this.workerInfo = new FormGroup({
+      name: new FormControl('', Validators.required),
+      surname: new FormControl('', Validators.required),
+      email: new FormControl('',[Validators.required,Validators.pattern("[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)")]),
+      position: new FormControl(''),
+      project: new FormControl(''),
+      skype: new FormControl(''),
+      phone: new FormControl(''),
+      bDay: new FormControl(''),
+      avatar: new FormControl({}),
+    });
+
       this.currentUser = this.authService.getUserIdentity().user;
       this.imgService = this.img;
 
@@ -85,11 +78,18 @@ export class AddWorkerComponent{
     }
 
     sendUser(){
+      if(!this.workerInfo.valid){
+        this.notificationsService.error(
+            'Error',
+            'Please fill all required fields'
+        );
+        return false;
+      }
       this.loadingGif = this.loading.create();
       this.loadingGif.present();
         if(this.uploader.queue[0]){
           this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
-              this.uploadAvatarService.onBuildItemForm(fileItem, form, this.workerInfo, this.currentUser.currentCompany);
+              this.uploadAvatarService.onBuildItemForm(fileItem, form, this.workerInfo.value, this.currentUser.currentCompany);
           };
 
           this.uploadAvatarService.uploadFile(this.uploader.queue[0]);
@@ -98,7 +98,7 @@ export class AddWorkerComponent{
             this.uploadAvatarService.onCompleteItem(item, response, status);
           };
         }else{
-          this.addWorkerService.addWorker(this.workerInfo, this.currentUser.currentCompany).subscribe(() => {
+          this.addWorkerService.addWorker(this.workerInfo.value, this.currentUser.currentCompany).subscribe(() => {
             this.loadingGif.dismiss();
             this.notificationsService.success(
                 'Success',

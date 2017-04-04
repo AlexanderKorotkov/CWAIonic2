@@ -35,14 +35,10 @@ export class WorkerDetailsComponent {
       this.worker = this.workersService.currentWorker;
       this.worker.bDay = moment(this.worker.bDay).format('DD-MM-YYYY');
     }
-
-
-
-
   }
 
   createCalendarBDayEvent(bDay:any){
-    let eventDate = moment(bDay).set('year', moment().year()).toDate();
+    let eventDate = moment(moment(bDay).toDate()).set('year', moment().year()).toDate();
     let options = this.calendar.getCalendarOptions();
     this.calendar.createEventInteractivelyWithOptions(`${this.worker.name}  ${this.worker.surname} Birthday`, '', '', eventDate, eventDate, options).then(
       (msg) => { console.log(JSON.stringify(msg)) },

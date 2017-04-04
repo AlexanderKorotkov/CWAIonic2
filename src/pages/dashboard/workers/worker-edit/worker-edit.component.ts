@@ -3,12 +3,15 @@ import { NavController } from 'ionic-angular';
 import {NotificationsService} from 'angular2-notifications';
 import { PhotoLibrary } from '@ionic-native/photo-library';
 
+import { Validators, FormGroup, FormControl} from '@angular/forms';
+
 import { AuthService } from '../../../../shared/auth/auth.service';
 import { WorkerEditService } from './worker-edit.service';
 import { WorkersService } from '../workers.service';
 import { UploadAvatarService } from '../shared/upload-avatar.service';
 import { ImgService } from '../../../../shared/img-service/img.service';
 import { LoadingController } from 'ionic-angular';
+import * as moment from 'moment';
 
 @Component({
     selector: 'worker-edit',
@@ -16,17 +19,7 @@ import { LoadingController } from 'ionic-angular';
 })
 export class WorkerEditComponent {
   uploader: any;
-  workerInfo: {
-    name: string;
-    surname: string;
-    email: string;
-    position: string;
-    project: string;
-    skype: string;
-    phone: string;
-    bDay: string;
-    avatar: any;
-  };
+  workerInfo: any;
   currentUser : any;
   uploadService : any;
   isEdit : boolean = true;
@@ -48,7 +41,20 @@ export class WorkerEditComponent {
 
       this.currentUser = this.authService.getUserIdentity().user;
       if(this.workersService.currentWorker){
-          this.workerInfo = this.workersService.currentWorker
+          // this.workerInfo = this.workersService.currentWorker
+        console.log(this.workersService.currentWorker.name)
+        this.workerInfo = new FormGroup({
+          name: new FormControl(this.workersService.currentWorker.name, Validators.required),
+          surname: new FormControl(this.workersService.currentWorker.surname, Validators.required),
+          email: new FormControl(this.workersService.currentWorker.email,[Validators.required,Validators.pattern("[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)")]),
+          position: new FormControl(this.workersService.currentWorker.position),
+          project: new FormControl(this.workersService.currentWorker.project),
+          skype: new FormControl(this.workersService.currentWorker.skype),
+          phone: new FormControl(this.workersService.currentWorker.phone),
+          bDay: new FormControl(moment(this.workersService.currentWorker.bDay).toDate()),
+          avatar: new FormControl(this.workersService.currentWorker.avatar),
+          _id:new FormControl(this.workersService.currentWorker._id),
+        });
       }else{
           this.nav.pop();
       }
@@ -77,20 +83,30 @@ export class WorkerEditComponent {
     }
 
     updateWorker(){
+      if(!this.workerInfo.valid){
+        this.notificationsService.error(
+          'Error',
+          'Please fill all required fields'
+        );
+        return false;
+      }
       this.loadingGif = this.loading.create();
       this.loadingGif.present();
         if(this.uploader.queue[0]){
           this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
-              this.uploadAvatarService.onBuildItemForm(fileItem, form, this.workerInfo, this.currentUser.currentCompany);
+              this.uploadAvatarService.onBuildItemForm(fileItem, form, this.workerInfo.value, this.currentUser.currentCompany);
           };
 
           this.uploadAvatarService.uploadFile(this.uploader.queue[0]);
+          console.log(this.uploader.queue[0])
           this.uploader.onCompleteItem = (item:any, response:any, status:any) => {
+            if(status === 200){this.workersService.currentWorker = this.workerInfo.value;}
             this.loadingGif.dismiss();
-              this.uploadAvatarService.onCompleteItem(item, response, status);
+            this.uploadAvatarService.onCompleteItem(item, response, status);
           };
         }else {
-          this.workerEditService.updateWorker(this.workerInfo, this.currentUser.currentCompany.companyId).subscribe(() => {
+          this.workerEditService.updateWorker(this.workerInfo.value, this.currentUser.currentCompany.companyId).subscribe(() => {
+            this.workersService.currentWorker = this.workerInfo.value;
             this.loadingGif.dismiss();
             this.notificationsService.success(
                 'Success',
