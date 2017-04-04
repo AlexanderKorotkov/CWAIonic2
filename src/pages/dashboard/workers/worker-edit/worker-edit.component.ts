@@ -41,8 +41,6 @@ export class WorkerEditComponent {
 
       this.currentUser = this.authService.getUserIdentity().user;
       if(this.workersService.currentWorker){
-          // this.workerInfo = this.workersService.currentWorker
-        console.log(this.workersService.currentWorker.name)
         this.workerInfo = new FormGroup({
           name: new FormControl(this.workersService.currentWorker.name, Validators.required),
           surname: new FormControl(this.workersService.currentWorker.surname, Validators.required),
@@ -53,7 +51,7 @@ export class WorkerEditComponent {
           phone: new FormControl(this.workersService.currentWorker.phone),
           bDay: new FormControl(moment(this.workersService.currentWorker.bDay).toDate()),
           avatar: new FormControl(this.workersService.currentWorker.avatar),
-          _id:new FormControl(this.workersService.currentWorker._id),
+          _id: new FormControl(this.workersService.currentWorker._id),
         });
       }else{
           this.nav.pop();
@@ -98,7 +96,6 @@ export class WorkerEditComponent {
           };
 
           this.uploadAvatarService.uploadFile(this.uploader.queue[0]);
-          console.log(this.uploader.queue[0])
           this.uploader.onCompleteItem = (item:any, response:any, status:any) => {
             if(status === 200){this.workersService.currentWorker = this.workerInfo.value;}
             this.loadingGif.dismiss();
