@@ -1,30 +1,31 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Create Company</ion-title>
+    <ion-title>Sign up</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
 
   <ion-list>
+    <form (ngSubmit)="signUp()" novalidate #singUpForm="ngForm">
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" [(ngModel)]="signUpData.email" name="email" pattern="[A-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)" required></ion-input>
+      </ion-item>
+        <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="signUpData.password" name="password" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Repeat Password</ion-label>
+        <ion-input type="password" [(ngModel)]="signUpData.repeatPassword" name="repeatPassword" required></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label floating>Email</ion-label>
-      <ion-input type="email" [(ngModel)]="signUpData.email"  required></ion-input>
-    </ion-item>
+      <div padding>
+        <button ion-button color="primary" block type="submit" [disabled]="singUpForm.invalid">Sign up</button>
+      </div>
 
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input type="password" [(ngModel)]="signUpData.password" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Repeat Password</ion-label>
-      <ion-input type="password" [(ngModel)]="signUpData.repeatPassword" required></ion-input>
-    </ion-item>
-
-    <div padding>
-      <button ion-button color="primary" block (click)="signUp()">Sign up</button>
-    </div>
+    </form>
 
   </ion-list>
 

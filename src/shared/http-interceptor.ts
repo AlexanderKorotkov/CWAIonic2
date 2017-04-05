@@ -12,7 +12,6 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class HttpInterceptorService extends Http {
-    nav: any;
     constructor(backend: XHRBackend,
                 defaultOptions: RequestOptions,
                 private authService: AuthService,
@@ -37,16 +36,17 @@ export class HttpInterceptorService extends Http {
     }
 
     private catchErrors() {
-      this.nav = this.app.getActiveNav();
+      // this.nav = this.app.getActiveNav();
+
       return (res: Response) => {
           if (res.status === 401 || res.status === 403) {
-              //handle authorization errors
-              //in this example I am navigating to logout route which brings the login screen
-              if (this.authService.isAuthenticated()) {
-                  this.authService.removeUserIdentity();
-              }
-            this.nav.setRoot(SignInComponent);
+            //handle authorization errors
+            //in this example I am navigating to logout route which brings the login screen
+            if (this.authService.isAuthenticated()) {
+                this.authService.removeUserIdentity();
+            }
           }
+          this.app.getActiveNav().setRoot(SignInComponent);
           return Observable.throw(res);
       };
     }

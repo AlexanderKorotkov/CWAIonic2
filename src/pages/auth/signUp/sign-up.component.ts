@@ -21,31 +21,37 @@ export class SignUpComponent implements OnInit{
     ngOnInit() {
         // initialize user model here
         this.signUpData = {
-            companyName: '',
-            password: '',
-            repeatPassword: '',
             email: '',
+            password: '',
+            repeatPassword: ''
         }
     }
 
     signUp() {
-        this.signUpService.signUp(this.signUpData).subscribe(result => {
-            this.navCtrl.pop();
-            this.notificationsService.success(
-                'Success',
-                `${result.message}`,
-                {
-                    position: ["bottom", "right"],
-                    timeOut: 5000,
-                    lastOnBottom: true
-                }
-            );
+      if(this.signUpData.password !== this.signUpData.repeatPassword){
+        this.notificationsService.error(
+          'Error',
+          'Passwords do not match'
+        )
+        return false;
+      }
+      this.signUpService.signUp(this.signUpData).subscribe(result => {
+          this.navCtrl.pop();
+          this.notificationsService.success(
+              'Success',
+              `${result.message}`,
+              {
+                  position: ["bottom", "right"],
+                  timeOut: 5000,
+                  lastOnBottom: true
+              }
+          );
 
-        },(result) => {
-            this.notificationsService.error(
-                'Error',
-                `${result.error}`
-             )
-        }) ;
+      },(result) => {
+          this.notificationsService.error(
+              'Error',
+              `${result.error}`
+           )
+      }) ;
     }
 }

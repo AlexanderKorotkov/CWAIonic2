@@ -98,6 +98,8 @@ export class WorkerEditComponent {
           this.uploadAvatarService.uploadFile(this.uploader.queue[0]);
           this.uploader.onCompleteItem = (item:any, response:any, status:any) => {
             if(status === 200){this.workersService.currentWorker = this.workerInfo.value;}
+            console.log(item)
+            console.log(response)
             this.loadingGif.dismiss();
             this.uploadAvatarService.onCompleteItem(item, response, status);
           };

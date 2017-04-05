@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {NotificationsService} from 'angular2-notifications';
 import { NavController, Nav } from 'ionic-angular';
 
@@ -14,7 +14,8 @@ import { ConfigService } from '../../../shared/config/config.service';
     selector: 'sign-in',
     templateUrl: 'sign-in.component.html'
 })
-export class SignInComponent implements OnInit{
+export class SignInComponent{
+    signInData:any = SignInFields;
     constructor(
         private signInService: SignInService,
         private configService: ConfigService,
@@ -23,32 +24,31 @@ export class SignInComponent implements OnInit{
         private nav: Nav,
         private notificationsService: NotificationsService
     ) { }
-    signInData: SignInFields;
 
-    ngOnInit() {
-        // initialize user model here
-        this.signInData = {
-            password: '',
-            email: '',
-            client_id: this.configService.getConfig().client_id,
-            client_secret: this.configService.getConfig().client_secret
-        }
+  ionViewDidEnter() {
+    // initialize user model here
+    this.signInData = {
+        password: '',
+        email: '',
+        client_id: this.configService.getConfig().client_id,
+        client_secret: this.configService.getConfig().client_secret
     }
+  }
 
-    signIn() {
-        this.signInService.signIn(this.signInData).subscribe(result => {
-            if(this.authService.setUserIdentity(result)){
-                this.nav.setRoot(DashboardComponent)
-            }
-        },(result) => {
-            this.notificationsService.error(
-                'Error',
-                `${result.error}`
-            )
-        }) ;
-    }
-    navOnSignUp() {
-      this.navCtrl.push(SignUpComponent);
-    }
+  signIn() {
+      this.signInService.signIn(this.signInData).subscribe(result => {
+          if(this.authService.setUserIdentity(result)){
+              this.nav.setRoot(DashboardComponent)
+          }
+      },(result) => {
+          this.notificationsService.error(
+              'Error',
+              `${result.error}`
+          )
+      }) ;
+  }
+  navOnSignUp() {
+    this.navCtrl.push(SignUpComponent);
+  }
 
 }

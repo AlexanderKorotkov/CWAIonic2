@@ -49,6 +49,7 @@ export class WorkersComponent {
             this.authService.getUserIdentity()
           },(result) => {
             this.loadingGif.dismiss();
+            console.log(result.error)
             this.notificationsService.error(
                 'Error',
                 `${result.error}`

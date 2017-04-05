@@ -11,7 +11,6 @@ export class ImgService  {
   ) { }
 
   updateUrl(avatar:any){
-    console.log(avatar)
     if(avatar){
       avatar.imageThumbUrl = this.default_image;
     }

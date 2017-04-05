@@ -9,10 +9,10 @@
 <ion-content>
 
   <ion-list>
-    <form (ngSubmit)="signIn()">
+    <form (ngSubmit)="signIn()" novalidate #singInForm="ngForm">
       <ion-item>
         <ion-label floating>Email</ion-label>
-        <ion-input type="email" [(ngModel)]="signInData.email" name="email"  required></ion-input>
+        <ion-input pattern="[A-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)" type="email" [(ngModel)]="signInData.email" name="email"  required></ion-input>
       </ion-item>
 
       <ion-item>
@@ -20,7 +20,7 @@
         <ion-input type="password" [(ngModel)]="signInData.password" name="password" required></ion-input>
       </ion-item>
       <div padding>
-        <button ion-button color="primary" block type="submit">Sign in</button>
+        <button ion-button color="primary" block type="submit" [disabled]="singInForm.invalid">Sign in</button>
       </div>
     </form>
   </ion-list>
@@ -30,6 +30,6 @@
   </div>
 
   <div padding>
-    <button ion-button color="primary" block (click)="navOnSignUp()">Create company</button>
+    <button ion-button color="primary" block (click)="navOnSignUp()">Sign Up</button>
   </div>
 </ion-content>

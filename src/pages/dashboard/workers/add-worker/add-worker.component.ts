@@ -44,7 +44,7 @@ export class AddWorkerComponent{
     this.workerInfo = new FormGroup({
       name: new FormControl('', Validators.required),
       surname: new FormControl('', Validators.required),
-      email: new FormControl('',[Validators.required,Validators.pattern("[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)")]),
+      email: new FormControl('',[Validators.required,Validators.pattern("[A-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)")]),
       position: new FormControl(''),
       project: new FormControl(''),
       skype: new FormControl(''),
