@@ -33,7 +33,6 @@ export class WorkerDetailsComponent {
     this.imgService = this.img;
     if(this.workersService.currentWorker){
       this.worker = this.workersService.currentWorker;
-      this.worker.bDay = moment(this.worker.bDay).format('DD-MM-YYYY');
     }
   }
 

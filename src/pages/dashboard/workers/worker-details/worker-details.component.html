@@ -56,9 +56,11 @@
       <ion-icon name="flask" item-left></ion-icon>
         {{worker.project}}
     </ion-item>
-    <ion-item (click)="createCalendarBDayEvent(worker.bDay)">
+    <ion-item >
       <ion-icon name="happy" item-left></ion-icon>
+      <a *ngIf="worker.bDay" class="list-link" (click)="createCalendarBDayEvent(worker.bDay)" href="javascript://">
         {{worker.bDay}}
+      </a>
     </ion-item>
   </ion-list>
 </ion-content>

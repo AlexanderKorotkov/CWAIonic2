@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import {NotificationsService} from 'angular2-notifications';
 import { PhotoLibrary } from '@ionic-native/photo-library';
 
-import { Validators, FormGroup, FormControl} from '@angular/forms';
+import { AddEditFields } from '../shared/add-edit-fields';
 
 import { AuthService } from '../../../../shared/auth/auth.service';
 import { WorkerEditService } from './worker-edit.service';
@@ -19,7 +19,7 @@ import * as moment from 'moment';
 })
 export class WorkerEditComponent {
   uploader: any;
-  workerInfo: any;
+  workerInfo: AddEditFields;
   currentUser : any;
   uploadService : any;
   isEdit : boolean = true;
@@ -39,38 +39,28 @@ export class WorkerEditComponent {
 
   ionViewDidEnter() {
 
-      this.currentUser = this.authService.getUserIdentity().user;
-      if(this.workersService.currentWorker){
-        this.workerInfo = new FormGroup({
-          name: new FormControl(this.workersService.currentWorker.name, Validators.required),
-          surname: new FormControl(this.workersService.currentWorker.surname, Validators.required),
-          email: new FormControl(this.workersService.currentWorker.email,[Validators.required,Validators.pattern("[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)")]),
-          position: new FormControl(this.workersService.currentWorker.position),
-          project: new FormControl(this.workersService.currentWorker.project),
-          skype: new FormControl(this.workersService.currentWorker.skype),
-          phone: new FormControl(this.workersService.currentWorker.phone),
-          bDay: new FormControl(moment(this.workersService.currentWorker.bDay).toDate()),
-          avatar: new FormControl(this.workersService.currentWorker.avatar),
-          _id: new FormControl(this.workersService.currentWorker._id),
-        });
-      }else{
-          this.nav.pop();
-      }
-      this.imgService = this.img;
+    this.currentUser = this.authService.getUserIdentity().user;
+    if(this.workersService.currentWorker){
+      this.workerInfo = this.workersService.currentWorker;
+      this.workerInfo.bDay = moment(this.workersService.currentWorker.bDay).toDate().toISOString();
+    }else{
+      this.nav.pop();
+    }
+    this.imgService = this.img;
 
-      this.uploadService = this.uploadAvatarService;
-      this.uploader = this.uploadService.initUploader();
-      this.uploader.options.url = this.uploadAvatarService.setUploaderUrl('workerEdit');
-      this.uploader.onAfterAddingFile = ((item:any) => {
-          this.uploadAvatarService.onAfterAddingFile(item);
+    this.uploadService = this.uploadAvatarService;
+    this.uploader = this.uploadService.initUploader();
+    this.uploader.options.url = this.uploadAvatarService.setUploaderUrl('workerEdit');
+    this.uploader.onAfterAddingFile = ((item:any) => {
+        this.uploadAvatarService.onAfterAddingFile(item);
+    });
+
+    //TODO refactor this
+    this.photoLibrary.requestAuthorization().then(() => {
+      this.photoLibrary.getLibrary().subscribe({
+        complete: () => { console.log("could not get photos"); }
       });
-
-      //TODO refactor this
-      this.photoLibrary.requestAuthorization().then(() => {
-        this.photoLibrary.getLibrary().subscribe({
-          complete: () => { console.log("could not get photos"); }
-        });
-      }).catch(err => console.log("permissions weren't granted"));
+    }).catch(err => console.log("permissions weren't granted"));
 
     }
 
@@ -80,8 +70,8 @@ export class WorkerEditComponent {
         this.uploadAvatarService.target = event.target || event.srcElement;
     }
 
-    updateWorker(){
-      if(!this.workerInfo.valid){
+    updateWorker(form:any){
+      if(form.invalid){
         this.notificationsService.error(
           'Error',
           'Please fill all required fields'
@@ -92,20 +82,18 @@ export class WorkerEditComponent {
       this.loadingGif.present();
         if(this.uploader.queue[0]){
           this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
-              this.uploadAvatarService.onBuildItemForm(fileItem, form, this.workerInfo.value, this.currentUser.currentCompany);
+              this.uploadAvatarService.onBuildItemForm(fileItem, form, this.workerInfo, this.currentUser.currentCompany);
           };
 
           this.uploadAvatarService.uploadFile(this.uploader.queue[0]);
           this.uploader.onCompleteItem = (item:any, response:any, status:any) => {
-            if(status === 200){this.workersService.currentWorker = this.workerInfo.value;}
-            console.log(item)
-            console.log(response)
+            if(status === 200){this.workersService.currentWorker = this.workerInfo;}
             this.loadingGif.dismiss();
             this.uploadAvatarService.onCompleteItem(item, response, status);
           };
         }else {
-          this.workerEditService.updateWorker(this.workerInfo.value, this.currentUser.currentCompany.companyId).subscribe(() => {
-            this.workersService.currentWorker = this.workerInfo.value;
+          this.workerEditService.updateWorker(this.workerInfo, this.currentUser.currentCompany.companyId).subscribe(() => {
+            this.workersService.currentWorker = this.workerInfo;
             this.loadingGif.dismiss();
             this.notificationsService.success(
                 'Success',
