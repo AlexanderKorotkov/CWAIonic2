@@ -17,7 +17,7 @@
 
     <ion-item *ngIf="workers && workers.length !== 0 && currentUser.role" (click)="showDeleteButton()">
       <ion-label>Show remove button </ion-label>
-      <ion-toggle checked="canDelete" ></ion-toggle>
+      <ion-toggle checked="{{canDelete}}" ></ion-toggle>
     </ion-item>
   </ion-list>
 
