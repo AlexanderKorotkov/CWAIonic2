@@ -1,30 +1,17 @@
 import { Injectable }    from '@angular/core';
 import { Location }    from '@angular/common';
-import { Router, CanActivate } from '@angular/router';
 
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class AuthService implements CanActivate {
+export class AuthService {
     identity : any;
 
     constructor(
-        private router: Router,
         private location: Location,
 
     ) { }
 
-    canActivate() {
-        if (localStorage.getItem('identity')) {
-            // logged in so return true
-            return true;
-        }
-
-
-        // not logged in so redirect to login page
-        this.router.navigate(['']);
-        return false;
-    }
 
 
     private getIdentity() {

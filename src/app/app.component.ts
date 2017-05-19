@@ -2,7 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 
 import { Platform, MenuController, Nav } from 'ionic-angular';
 
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AuthService }          from '../shared/auth/auth.service';
 import { SignInComponent } from '../pages/auth/signIn/sign-in.component';
@@ -10,7 +11,8 @@ import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [StatusBar, SplashScreen]
 })
 export class AppComponent {
   @ViewChild(Nav) nav: Nav;
@@ -26,9 +28,11 @@ export class AppComponent {
   };
 
   constructor(
-    public platform: Platform,
-    public menu: MenuController,
-    public authService: AuthService
+    private platform: Platform,
+    private menu: MenuController,
+    private authService: AuthService,
+    private statusBar: StatusBar,
+    private splashScreen: SplashScreen
   ) {
     this.initializeApp();
 
@@ -45,8 +49,9 @@ export class AppComponent {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-      Splashscreen.hide();
+      this.statusBar.overlaysWebView(true);
+      // this.statusBar.styleDefault();
+      this.splashScreen.hide();
     });
     this.currentUser = this.authService.getUserIdentity();
     if(this.currentUser){

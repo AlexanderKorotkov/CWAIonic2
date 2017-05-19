@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { AuthService } from '../../../../shared/auth/auth.service';
 import {NotificationsService} from 'angular2-notifications';
@@ -18,7 +17,6 @@ export class ChangePasswordComponent implements OnInit{
     constructor(
         private authService: AuthService,
         private notificationsService: NotificationsService,
-        private router: Router,
         private changePasswordService: ChangePasswordService
     ) { }
     ngOnInit() {
@@ -32,7 +30,6 @@ export class ChangePasswordComponent implements OnInit{
 
     updatePassword() {
         this.changePasswordService.updatePassword(this.passwordData, this.currentUser._id).subscribe(result => {
-            this.router.navigate(['/menu']);
             this.notificationsService.success(
                 'Success',
                 `${result.message}`,

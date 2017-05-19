@@ -5,8 +5,6 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
 import {Calendar} from '@ionic-native/calendar';
 import {SharedModule}              from '../../../shared/shared.module';
 
-import { WorkersRoutingModule }    from './workers-routing.module';
-
 import { WorkersComponent }        from './workers.component';
 import { WorkerComponent }         from './worker/worker.component';
 import { AddWorkerComponent }      from './add-worker/add-worker.component';
@@ -22,7 +20,6 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
-        WorkersRoutingModule,
         SharedModule,
         FormsModule
     ],
