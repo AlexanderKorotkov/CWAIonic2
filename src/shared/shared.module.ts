@@ -14,12 +14,14 @@ import {HttpInterceptorService}    from './http-interceptor';
 import { AuthService }              from './auth/auth.service';
 import { ConfigService }            from './config/config.service';
 import { ImgService }               from './img-service/img.service';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     exports: [
         BrowserModule,
         FormsModule,
         HttpModule,
+        BrowserAnimationsModule,
         SimpleNotificationsModule,
         IonicModule,
         CommonModule

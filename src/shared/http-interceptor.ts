@@ -46,7 +46,7 @@ export class HttpInterceptorService extends Http {
                 this.authService.removeUserIdentity();
             }
           }
-          this.app.getActiveNav().setRoot(SignInComponent);
+          this.app.getRootNav().setRoot(SignInComponent);
           return Observable.throw(res);
       };
     }

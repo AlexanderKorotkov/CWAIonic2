@@ -5,10 +5,7 @@ import { Injectable }    from '@angular/core';
 export class ImgService  {
   default_image: any = 'assets/img/ionic.png' ;
 
-  constructor(
-
-
-  ) { }
+  constructor(  ) { }
 
   updateUrl(avatar:any){
     if(avatar){

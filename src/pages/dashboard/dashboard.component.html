@@ -1,9 +1,12 @@
-
 <ion-content >
+  <super-tabs tabsPlacement="top" *ngIf="workers">
+    <super-tab icon="star" [root]="workers" title="Workers" id="workers"></super-tab>
+    <super-tab icon="heart" [root]="menu" title="Settings" id="menu"></super-tab>
+  </super-tabs>
 
-  <ion-tabs>
-    <ion-tab tabIcon="star" [root]="workers"></ion-tab>
-    <ion-tab tabIcon="heart" [root]="menu"></ion-tab>
-  </ion-tabs>
+  <!--<ion-tabs *ngIf="menu">-->
+    <!--<ion-tab tabIcon="star" [root]="workers"></ion-tab>-->
+    <!--<ion-tab tabIcon="heart" [root]="menu"></ion-tab>-->
+  <!--</ion-tabs>-->
 
 </ion-content>

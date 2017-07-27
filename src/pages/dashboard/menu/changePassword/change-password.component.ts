@@ -5,6 +5,7 @@ import {NotificationsService} from 'angular2-notifications';
 
 import { ChangePasswordService } from './change-password.service';
 import { ChangePasswordFields } from './change-password-fields';
+import {SuperTabs} from "ionic2-super-tabs";
 
 @Component({
     selector: 'change-password',
@@ -17,7 +18,8 @@ export class ChangePasswordComponent implements OnInit{
     constructor(
         private authService: AuthService,
         private notificationsService: NotificationsService,
-        private changePasswordService: ChangePasswordService
+        private changePasswordService: ChangePasswordService,
+        private superTabs: SuperTabs
     ) { }
     ngOnInit() {
         this.currentUser = this.authService.getUserIdentity().user;
@@ -25,7 +27,7 @@ export class ChangePasswordComponent implements OnInit{
             oldPassword: '',
             newPassword: '',
             repeatPassword: ''
-        }
+        };
     }
 
     updatePassword() {

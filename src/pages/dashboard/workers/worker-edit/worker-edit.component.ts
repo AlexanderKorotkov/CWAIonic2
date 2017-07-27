@@ -42,7 +42,8 @@ export class WorkerEditComponent {
     this.currentUser = this.authService.getUserIdentity().user;
     if(this.workersService.currentWorker){
       this.workerInfo = this.workersService.currentWorker;
-      this.workerInfo.bDay = moment(this.workersService.currentWorker.bDay).toDate().toISOString();
+      console.log(moment(this.workersService.currentWorker.bDay))
+      this.workerInfo.bDay = moment(this.workersService.currentWorker.bDay).toDate();
     }else{
       this.nav.pop();
     }
@@ -87,7 +88,10 @@ export class WorkerEditComponent {
 
           this.uploadAvatarService.uploadFile(this.uploader.queue[0]);
           this.uploader.onCompleteItem = (item:any, response:any, status:any) => {
-            if(status === 200){this.workersService.currentWorker = this.workerInfo;}
+            if(status === 200){
+              this.workersService.currentWorker = this.workerInfo;
+              this.workersService.currentWorker.avatar = JSON.parse(response).data;
+            }
             this.loadingGif.dismiss();
             this.uploadAvatarService.onCompleteItem(item, response, status);
           };

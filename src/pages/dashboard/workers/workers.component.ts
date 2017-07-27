@@ -9,6 +9,7 @@ import { WorkersService }       from './workers.service';
 import { WorkerComponent }      from './worker/worker.component';
 import { AddWorkerComponent }   from './add-worker/add-worker.component';
 import { WorkerDetailsComponent }   from './worker-details/worker-details.component';
+import {SuperTabs} from "ionic2-super-tabs";
 
 @Component({
     selector: 'workers',
@@ -28,59 +29,73 @@ export class WorkersComponent {
         private workersService: WorkersService,
         private authService: AuthService,
         private notificationsService: NotificationsService,
+        private superTabs: SuperTabs,
         private loading: LoadingController
     ) { }
-  ionViewDidEnter() {
-        this.currentUser = this.authService.getUserIdentity().user;
-        this.addWorkerPage = AddWorkerComponent;
-        this.loadingGif = this.loading.create();
+  ionViewDidEnter(){
+    this.superTabs.showToolbar(true);
+  }
+  ionViewWillLeave(){
+    this.superTabs.showToolbar(false);
+  }
+  ionViewDidLoad() {
+      this.currentUser = this.authService.getUserIdentity().user;
+      this.addWorkerPage = AddWorkerComponent;
+      this.loadingGif = this.loading.create();
 
-        if(!this.currentUser.currentCompany){
-            this.notificationsService.alert(
-                'Warning',
-                `Please select a company`
-            );
-        }else{
-          this.loadingGif.present();
+      if(!this.currentUser.currentCompany){
+          this.notificationsService.alert(
+              'Warning',
+              `Please select a company`
+          );
+      }else{
+        this.loadingGif.present();
+        this.getWorkers();
+      }
 
-          this.workersService.fetchCompanyWorkers(this.currentUser.currentCompany.companyId, this.currentUser._id).subscribe(result => {
-            this.loadingGif.dismiss();
-            this.workers = result.data;
-            this.authService.getUserIdentity()
-          },(result) => {
-            this.loadingGif.dismiss();
-            console.log(result.error)
-            this.notificationsService.error(
-                'Error',
-                `${result.error}`
-            )
-          }) ;
-        }
+  }
 
-    }
+  doRefresh(refresher) {
+    this.getWorkers();
+    refresher.complete();
+  }
 
-    deleteWorker(worker:any) {
-        this.workersService.deleteWorker(this.currentUser.currentCompany.companyId, worker).subscribe(result => {
-            this.workers.splice(this.workers.indexOf(worker), 1);
-            this.notificationsService.success(
-                'Success',
-                `${'Worker was deleted successfully'}`
-            )
-        },(result) => {
-            this.notificationsService.error(
-                'Error',
-                `${result.error}`
-            )
-        }) ;
-    }
+  getWorkers(){
+    this.workersService.fetchCompanyWorkers(this.currentUser.currentCompany.companyId, this.currentUser._id).subscribe(result => {
+      this.loadingGif.dismiss();
+      this.workers = result.data;
+      this.authService.getUserIdentity();
+    },(result) => {
+      this.loadingGif.dismiss();
+      this.notificationsService.error(
+        'Error',
+        `${result.error}`
+      )
+    }) ;
+  }
 
-    goToWorkerDetails(worker:any) {
-        this.workersService.currentWorker = worker;
-        this.nav.push(WorkerDetailsComponent);
-    }
+  deleteWorker(worker:any) {
+      this.workersService.deleteWorker(this.currentUser.currentCompany.companyId, worker).subscribe(result => {
+          this.workers.splice(this.workers.indexOf(worker), 1);
+          this.notificationsService.success(
+              'Success',
+              `${'Worker was deleted successfully'}`
+          )
+      },(result) => {
+          this.notificationsService.error(
+              'Error',
+              `${result.error}`
+          )
+      }) ;
+  }
 
-    showDeleteButton(){
-        this.canDelete = !this.canDelete;
-    };
+  goToWorkerDetails(worker:any) {
+      this.workersService.currentWorker = worker;
+      this.nav.push(WorkerDetailsComponent);
+  }
+
+  showDeleteButton(){
+      this.canDelete = !this.canDelete;
+  };
 
 }
